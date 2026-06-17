@@ -41,8 +41,25 @@ let highlightObserver = null;
 let highlightHintBubble = null;
 let lastScrollY = 0;
 
+function resetInitialScrollPosition() {
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
+  requestAnimationFrame(() => {
+    window.scrollTo(0, 0);
+  });
+}
+
 function createInitialState() {
   const categoryList = window.prototypeData.categories || [];
+  const defaultOpenSections = categoryList.length
+    ? categoryList
+        .filter((category) => (category.label || category.majorCategory || "").includes("암"))
+        .map((category) => category.majorCategory)
+    : [...new Set(window.prototypeData.riders
+        .map((rider) => rider.section)
+        .filter((section) => typeof section === "string" && section.includes("암")))];
 
   return {
     riders: window.prototypeData.riders.map((rider) => ({
@@ -53,7 +70,7 @@ function createInitialState() {
     currentComparisonId: null,
     currentConsultSource: null,
     lastGuideContext: null,
-    openSections: new Set(categoryList.length ? [] : window.prototypeData.riders.map((rider) => rider.section)),
+    openSections: new Set(defaultOpenSections),
     revealedHighlightKeys: new Set(),
     hasShownHighlightHint: false
   };
@@ -457,13 +474,45 @@ function hideHighlightHintBubble(immediate = false) {
   }
 }
 
-function showHighlightHintBubble(target) {
-  if (!target || state.hasShownHighlightHint) return;
+function getPrimaryHighlightHintTarget() {
+  const integratedCancerHighlights = [...document.querySelectorAll('.term-highlight[data-term-id="integratedCancer"][data-highlight-key]')]
+    .filter((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    })
+    .sort((left, right) => left.getBoundingClientRect().top - right.getBoundingClientRect().top);
+
+  if (integratedCancerHighlights.length) {
+    return integratedCancerHighlights[0];
+  }
+
+  return [...document.querySelectorAll(".term-highlight[data-highlight-key]")]
+    .filter((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0;
+    })
+    .sort((left, right) => left.getBoundingClientRect().top - right.getBoundingClientRect().top)[0] || null;
+}
+
+function updatePrimaryHighlightHintBubble() {
+  const target = getPrimaryHighlightHintTarget();
+  if (!target) {
+    hideHighlightHintBubble(true);
+    return;
+  }
 
   const bubble = ensureHighlightHintBubble();
   const rect = target.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
   const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
   const bubbleWidth = bubble.offsetWidth || 160;
+  const bubbleHeight = bubble.offsetHeight || 34;
+
+  if (rect.bottom < 0 || rect.top > viewportHeight) {
+    hideHighlightHintBubble(true);
+    return;
+  }
+
   const left = Math.min(viewportWidth - bubbleWidth - 12, Math.max(12, rect.left - 10));
   const top = Math.max(10, rect.top - 46);
   const pointerLeft = Math.min(
@@ -476,12 +525,37 @@ function showHighlightHintBubble(target) {
   bubble.style.top = `${top}px`;
   bubble.style.setProperty("--bubble-pointer-left", `${pointerLeft}px`);
 
+  const stickyBar = document.querySelector(".bottom-area.__plan.info-calc-bottom");
+  const stickyTop = stickyBar ? stickyBar.getBoundingClientRect().top : viewportHeight;
+  const bubbleBottom = top + bubbleHeight;
+  const fadeStartTop = stickyTop - 72;
+  const fadeEndTop = stickyTop - 24;
+  const viewportFadeStartTop = 60;
+  const viewportFadeEndTop = 12;
+  const viewportFadeStartBottom = viewportHeight - 72;
+  const viewportFadeEndBottom = viewportHeight - 24;
+  let opacity = 1;
+
+  if (bubbleBottom >= fadeStartTop) {
+    const progress = Math.min(1, Math.max(0, (bubbleBottom - fadeStartTop) / Math.max(1, fadeEndTop - fadeStartTop)));
+    opacity = Math.min(opacity, 1 - progress);
+  }
+
+  if (top <= viewportFadeStartTop) {
+    const progress = Math.min(1, Math.max(0, (viewportFadeStartTop - top) / Math.max(1, viewportFadeStartTop - viewportFadeEndTop)));
+    opacity = Math.min(opacity, 1 - progress);
+  }
+
+  if (bubbleBottom >= viewportFadeStartBottom) {
+    const progress = Math.min(1, Math.max(0, (bubbleBottom - viewportFadeStartBottom) / Math.max(1, viewportFadeEndBottom - viewportFadeStartBottom)));
+    opacity = Math.min(opacity, 1 - progress);
+  }
+
+  bubble.style.opacity = `${Math.max(0, opacity)}`;
+
   requestAnimationFrame(() => {
     bubble.classList.add("is-visible");
   });
-
-  state.hasShownHighlightHint = true;
-  lastScrollY = window.scrollY || window.pageYOffset || 0;
 }
 
 function handleProductSectionClick(event) {
@@ -534,6 +608,7 @@ function setupHighlightAnimations() {
 
   const highlights = document.querySelectorAll(".term-highlight[data-highlight-key]");
   if (!highlights.length) return;
+  updatePrimaryHighlightHintBubble();
 
   const isHighlightActuallyVisible = (element) => {
     const rect = element.getBoundingClientRect();
@@ -562,7 +637,6 @@ function setupHighlightAnimations() {
     state.revealedHighlightKeys.add(key);
     element.classList.add("is-revealed");
     element.classList.add("revealed");
-    showHighlightHintBubble(element);
     element.addEventListener(
       "animationend",
       () => {
@@ -615,9 +689,7 @@ function bindEvents() {
     "scroll",
     () => {
       const currentScrollY = window.scrollY || window.pageYOffset || 0;
-      if (currentScrollY > lastScrollY + 2) {
-        hideHighlightHintBubble();
-      }
+      updatePrimaryHighlightHintBubble();
       lastScrollY = currentScrollY;
     },
     { passive: true }
@@ -669,6 +741,8 @@ function bindEvents() {
 }
 
 async function bootstrapApp() {
+  resetInitialScrollPosition();
+
   if (typeof window.loadPrototypeData === "function") {
     window.prototypeData = await window.loadPrototypeData();
   }
