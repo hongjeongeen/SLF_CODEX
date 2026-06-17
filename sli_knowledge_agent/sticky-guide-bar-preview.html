@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko" class="mobile">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sticky Guide Bar Preview</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      body {
+        background: #eef3f9;
+      }
+
+      .preview-shell {
+        width: min(100%, 430px);
+        min-height: 100vh;
+        margin: 0 auto;
+        background: #ffffff;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .preview-content {
+        padding-bottom: 240px;
+      }
+
+      .preview-card-stack {
+        padding: 16px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .preview-placeholder-card {
+        min-height: 110px;
+        border-radius: 18px;
+        background: #f4f7fb;
+      }
+
+      .preview-placeholder-card.primary {
+        min-height: 180px;
+        background: linear-gradient(180deg, #3e8cec 0%, #367fe0 100%);
+      }
+
+      .preview-guide {
+        display: block !important;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .preview-guide .guide-close-btn {
+        top: 10px;
+        right: 8px;
+        width: 22px;
+        height: 22px;
+      }
+
+      .preview-guide .guide-close-btn span {
+        font-size: 15px;
+      }
+
+      .preview-guide .guide-copy {
+        padding-right: 8px;
+      }
+
+      .preview-guide .guide-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 2px;
+      }
+
+      .preview-guide .guide-detail-btn {
+        min-width: 88px;
+        min-height: 32px;
+        padding: 0 14px;
+        border-radius: 12px;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview-shell">
+      <header class="direct-header">
+        <div class="status-bar" aria-hidden="true">
+          <span class="status-carrier">SKT 3:58</span>
+          <div class="status-icons">
+            <span>5G</span>
+            <span class="status-battery">81</span>
+          </div>
+        </div>
+        <div class="header-wrap">
+          <button type="button" class="btn-header-previous">
+            <span aria-hidden="true">‹</span>
+            <span class="offscreen">뒤로가기</span>
+          </button>
+          <h1 class="tittle">팩 건강보험</h1>
+          <ul class="right-area">
+            <li><button type="button" class="btn-ext consult">상담</button></li>
+          </ul>
+        </div>
+      </header>
+
+      <main class="result-page preview-content">
+        <section class="top-filter-area">
+          <div class="top-filter-row">
+            <div class="filter-summary">
+              <p class="caption">
+                <span class="caption-label">보험 계산 결과</span>
+                <strong class="caption-age">45세 | 남성</strong>
+              </p>
+            </div>
+            <div class="filter-actions">
+              <button type="button" class="badge-btn feature-btn">상품 특징점</button>
+            </div>
+          </div>
+
+          <div class="result-tabs" role="tablist" aria-label="설계 유형">
+            <button type="button" class="result-tab" role="tab" aria-selected="false">인기 <em>Hot</em></button>
+            <button type="button" class="result-tab" role="tab" aria-selected="false">인기 <em>Lite</em></button>
+            <button type="button" class="result-tab result-tab-self" role="tab" aria-selected="true">
+              <span class="spark-icon" aria-hidden="true">🪄</span>
+              셀프
+            </button>
+          </div>
+
+          <div class="self-banner">
+            <span class="self-banner-icon" aria-hidden="true">👉</span>
+            <p>내가 직접 설계하는 나만의 보험</p>
+          </div>
+        </section>
+
+        <section class="price-panel">
+          <div class="price-card">
+            <div class="mini-flag self">셀프</div>
+            <div class="price-copy">
+              <span>월</span>
+              <strong id="totalPremium">76,327원</strong>
+              <p class="price-benefit-copy">오프라인 상품 보다 약 4.2% 저렴</p>
+              <p>보험기간 100세 / 납입기간 20년</p>
+            </div>
+          </div>
+
+          <article class="benefit-box">
+            <p class="benefit-copy">10년 내 입원/수술 이력이 없다면 <strong>월보험료를 20% 더 할인</strong>해드려요.</p>
+            <div class="benefit-line">
+              <span class="benefit-badge">%</span>
+              <span>최대혜택가</span>
+              <strong>82,080원</strong>
+            </div>
+          </article>
+        </section>
+
+        <section class="calc-section">
+          <div class="section-headline">
+            <div>
+              <h2>보장 설계</h2>
+              <p>기존 설계 화면은 유지하고, 이해가 필요한 순간에만 설명 길잡이가 개입합니다.</p>
+            </div>
+            <button type="button" class="btn-arrow">모두 펼치기</button>
+          </div>
+
+          <div class="preview-card-stack">
+            <div class="preview-placeholder-card"></div>
+            <div class="preview-placeholder-card primary"></div>
+            <div class="preview-placeholder-card"></div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="sticky-guide-bar preview-guide" aria-live="polite">
+        <button class="icon-btn icon-btn-close guide-close-btn" aria-label="닫기" type="button">
+          <span aria-hidden="true">×</span>
+        </button>
+        <div class="guide-copy">
+          <p class="guide-kicker">지금은 이 내용만 보면 돼요</p>
+          <strong class="guide-title">일반암 · 미가입으로 두면 이 보장을 놓쳐요</strong>
+          <p class="guide-body">
+            이 항목이 진단 보장인지, 치료 범위 확장인지 나눠서 보면 비교가 쉬워져요.
+            가장 기본이 되는 진단 특약이라 비교 기준점으로 보면 됩니다.
+          </p>
+        </div>
+        <div class="guide-actions">
+          <button class="btn btn-pry btn-sm guide-detail-btn" type="button">자세히 보기</button>
+        </div>
+      </aside>
+
+      <div class="bottom-area __plan info-calc-bottom">
+        <div class="box-package-fee">
+          <div><span class="flag flag-pry">기본형</span></div>
+          <div class="m-area">
+            <span>월</span>
+            <strong id="footerPremium">76,327원</strong>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-sec"><span>계산결과 저장하기</span></button>
+          <button type="button" class="btn btn-pry"><span>가입하기</span></button>
+        </div>
+        <p class="txt-info-cancel">가입 후 30일 이내 청약 철회가 가능해요.</p>
+      </div>
+    </div>
+  </body>
+</html>

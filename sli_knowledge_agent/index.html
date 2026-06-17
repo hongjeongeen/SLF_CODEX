@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html lang="ko" class="mobile">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>보험 계산 결과 | 보험길잡이 AGENT MVP</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app" class="page-shell">
+      <header class="direct-header js-sticky js-fl">
+        <div class="status-bar" aria-hidden="true">
+          <span class="status-carrier">SKT 3:58</span>
+          <div class="status-icons">
+            <span>5G</span>
+            <span class="status-battery">81</span>
+          </div>
+        </div>
+        <div class="header-wrap">
+          <button type="button" class="btn-header-previous">
+            <span aria-hidden="true">‹</span>
+            <span class="offscreen">뒤로가기</span>
+          </button>
+          <h1 class="tittle">팩 건강보험</h1>
+          <ul class="right-area">
+            <li><button type="button" class="btn-ext consult">상담</button></li>
+          </ul>
+        </div>
+      </header>
+
+      <main class="result-page">
+        <section class="top-filter-area">
+          <div class="top-filter-row">
+            <div class="filter-summary">
+              <p class="caption">
+                <span class="caption-label">보험 계산 결과</span>
+                <strong class="caption-age">45세 | 남성</strong>
+              </p>
+            </div>
+            <div class="filter-actions">
+              <button type="button" class="badge-btn feature-btn">상품 특징점</button>
+            </div>
+          </div>
+
+          <div class="result-tabs" role="tablist" aria-label="설계 유형">
+            <button type="button" class="result-tab" role="tab" aria-selected="false">인기 <em>Hot</em></button>
+            <button type="button" class="result-tab" role="tab" aria-selected="false">인기 <em>Lite</em></button>
+            <button type="button" class="result-tab result-tab-self" id="openOverview" role="tab" aria-selected="true">
+              <span class="spark-icon" aria-hidden="true">🪄</span>
+              셀프
+            </button>
+          </div>
+
+          <div class="self-banner">
+            <span class="self-banner-icon" aria-hidden="true">👉</span>
+            <p>내가 직접 설계하는 나만의 보험</p>
+          </div>
+        </section>
+
+        <section class="price-panel">
+          <div class="price-card">
+            <div class="mini-flag self">셀프</div>
+            <div class="price-copy">
+              <span>월</span>
+              <strong id="totalPremium">102,600원</strong>
+              <p class="price-benefit-copy">오프라인 상품 보다 약 4.2% 저렴</p>
+              <p>보험기간 100세 / 납입기간 20년</p>
+            </div>
+          </div>
+
+          <article class="benefit-box">
+            <p class="benefit-copy">10년 내 입원/수술 이력이 없다면 <strong>월보험료를 20% 더 할인</strong>해드려요.</p>
+            <div class="benefit-line">
+              <span class="benefit-badge">%</span>
+              <span>최대혜택가</span>
+              <strong>82,080원</strong>
+            </div>
+          </article>
+        </section>
+
+        <section class="calc-section">
+          <div class="section-headline">
+            <div>
+              <h2>보장 설계</h2>
+              <p>기존 설계 화면은 유지하고, 이해가 필요한 순간에만 설명 길잡이가 개입합니다.</p>
+            </div>
+            <button type="button" class="btn-arrow">모두 펼치기</button>
+          </div>
+          <div id="productSections" class="group-list"></div>
+        </section>
+
+        <section class="legal-area">
+          <ul class="txt-list dot-list">
+            <li>버튼을 눌러 선택한 보장과 특약명을 확인하고 지금 제한 사항 및 자세한 내용을 같이 읽어보세요.</li>
+            <li>보험길잡이 설명은 권유를 대신하지 않으며 자세한 기준은 약관을 꼭 확인해 주세요.</li>
+          </ul>
+        </section>
+
+        <section class="bot-share-area">
+          <h2 class="tit-sm">
+            아직 고민 중이신가요?
+            <span>현재 선택한 보험료 계산 결과를 가족에게 공유하면 상황을 조금 더 쉽게 이야기할 수 있어요.</span>
+          </h2>
+          <ul class="share-list">
+            <li><button type="button" class="btn-share kakao"><span>카카오톡</span></button></li>
+            <li><button type="button" class="btn-share url"><span>URL 복사</span></button></li>
+          </ul>
+        </section>
+      </main>
+
+      <aside class="sticky-guide-bar hidden" id="guideBar" aria-live="polite">
+        <button class="icon-btn icon-btn-close guide-close-btn" id="guideDismissBtn" aria-label="닫기" type="button"><span aria-hidden="true">×</span></button>
+        <div class="guide-copy">
+          <p class="guide-kicker">지금은 이 내용만 보면 돼요</p>
+          <strong id="guideTitle" class="guide-title"></strong>
+          <span id="guideMessage" class="guide-body"></span>
+        </div>
+        <div class="guide-actions">
+          <button class="btn btn-pry btn-sm guide-detail-btn" id="guideDetailBtn" type="button">자세히 보기</button>
+        </div>
+      </aside>
+
+      <div class="bottom-area __plan info-calc-bottom">
+        <div class="box-package-fee">
+          <div><span class="flag flag-pry">기본형</span></div>
+          <div class="m-area">
+            <span>월</span>
+            <strong id="footerPremium">76,327원</strong>
+          </div>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-sec"><span>계산결과 저장하기</span></button>
+          <button type="button" class="btn btn-pry"><span>가입하기</span></button>
+        </div>
+        <p class="txt-info-cancel">가입 후 30일 이내 청약 철회가 가능해요.</p>
+      </div>
+    </div>
+
+    <div class="scrim hidden" id="scrim"></div>
+
+    <section class="bottom-sheet hidden" id="termSheet" aria-modal="true" role="dialog">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <div>
+          <p class="sheet-kicker" id="termSheetTag">용어 설명</p>
+          <h2 id="termSheetTitle"></h2>
+        </div>
+        <button class="icon-btn icon-btn-close" aria-label="닫기" data-close="termSheet" type="button"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="sheet-body">
+        <p class="summary-pill" id="termPlainSummary"></p>
+        <div class="info-block">
+          <h3>왜 중요한가</h3>
+          <p id="termWhy"></p>
+        </div>
+        <div class="info-block">
+          <h3>이럴 때 같이 보면 좋아요</h3>
+          <p id="termFit"></p>
+        </div>
+        <div class="info-block">
+          <h3>주의할 점</h3>
+          <p id="termCaution"></p>
+        </div>
+        <div class="info-block" id="termExamplesBlock">
+          <h3>자세히 보기</h3>
+          <ul id="termExamples"></ul>
+        </div>
+        <p class="legal-note" id="termLegal"></p>
+      </div>
+      <div class="sheet-footer">
+        <button class="btn btn-sec" id="openCompareFromTerm" type="button">비교 보기</button>
+        <button class="btn btn-pry" id="openConsultFromTerm" type="button">이 항목만 상담받기</button>
+      </div>
+    </section>
+
+    <section class="comparison-drawer hidden" id="comparisonDrawer" aria-modal="true" role="dialog">
+      <div class="sheet-handle"></div>
+      <div class="drawer-header">
+        <div>
+          <p class="sheet-kicker">비교 보기</p>
+          <h2 id="comparisonTitle"></h2>
+        </div>
+        <button class="icon-btn icon-btn-close" aria-label="닫기" data-close="comparisonDrawer" type="button"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="drawer-body">
+        <div class="compare-columns">
+          <article class="compare-card">
+            <p class="compare-side">왼쪽 보장</p>
+            <h3 id="comparisonLeftTitle"></h3>
+            <p id="comparisonLeftFit"></p>
+          </article>
+          <article class="compare-card">
+            <p class="compare-side">오른쪽 보장</p>
+            <h3 id="comparisonRightTitle"></h3>
+            <p id="comparisonRightFit"></p>
+          </article>
+        </div>
+        <div class="info-block">
+          <h3>차이만 빠르게 보기</h3>
+          <ul id="comparisonPoints"></ul>
+        </div>
+        <p class="legal-note" id="comparisonCaution"></p>
+      </div>
+      <div class="drawer-footer">
+        <button class="btn btn-sec" id="comparisonConsultBtn" type="button">이 비교 그대로 상담 연결</button>
+      </div>
+    </section>
+
+    <section class="consult-card hidden" id="consultCard" aria-modal="true" role="dialog">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <div>
+          <p class="sheet-kicker">상담 연결</p>
+          <h2>권유 없이 필요한 내용만 상담해드려요</h2>
+        </div>
+        <button class="icon-btn icon-btn-close" aria-label="닫기" data-close="consultCard" type="button"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="sheet-body">
+        <p class="consult-lead">
+          지금 보고 있던 항목과 막혔던 지점만 전달하는 흐름이라 처음부터 다시 설명하지 않아도 되도록 맥락을 함께 넘겨드려요.
+        </p>
+        <div class="handoff-box">
+          <p class="handoff-label">상담으로 바로 전달되는 내용</p>
+          <ul id="consultContext"></ul>
+        </div>
+        <p class="legal-note">세부 기준과 지급 조건은 약관을 꼭 확인해 주세요.</p>
+      </div>
+      <div class="sheet-footer">
+        <a class="btn btn-pry consult-call" href="tel:1588-0000">1588-0000 연결</a>
+      </div>
+    </section>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
+

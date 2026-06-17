@@ -1,0 +1,123 @@
+product_rider_code,datajs_rider_id,major_category,middle_category,minor_category,option_group_type,option_order,option_label_raw,option_value_normalized,is_joinable_option,is_default_option,operator_note
+A0101,integrated-cancer,암,암 진단,통합암,selectable_amount,1,미가입,미가입,false,true,현재 data.js options 분해값
+A0101,integrated-cancer,암,암 진단,통합암,selectable_amount,2,"1,000만원","1,000만원",true,false,현재 data.js options 분해값
+A0101,integrated-cancer,암,암 진단,통합암,selectable_amount,3,"1,500만원","1,500만원",true,false,현재 data.js options 분해값
+A0101,integrated-cancer,암,암 진단,통합암,selectable_amount,4,"3,000만원","3,000만원",true,false,현재 data.js options 분해값
+A0102,integrated-small-cancer,암,암 진단,통합소액암,single_choice_only,1,미가입,미가입,false,true,가입 가능 금액 원본상 선택지 1개
+A0103,general-cancer,암,암 진단,일반암,selectable_amount,1,미가입,미가입,false,false,현재 data.js options 분해값
+A0103,general-cancer,암,암 진단,일반암,selectable_amount,2,"1,000만원","1,000만원",true,true,현재 data.js 기본 선택값
+A0103,general-cancer,암,암 진단,일반암,selectable_amount,3,"1,500만원","1,500만원",true,false,현재 data.js options 분해값
+A0103,general-cancer,암,암 진단,일반암,selectable_amount,4,"3,000만원","3,000만원",true,false,현재 data.js options 분해값
+A0104,,암,암 진단,"소액질병(초기 유방암, 중증 이외 갑상선암 등)",fixed_amount,1,"200만원 월 1,560원","200만원",true,true,원본 CSV가 고정 표시형 값으로 제공됨
+A0201,integrated-treatment,암,암 치료,암 통합 치료,selectable_amount,1,미가입,미가입,false,false,현재 data.js options 분해값
+A0201,integrated-treatment,암,암 치료,암 통합 치료,selectable_amount,2,"5,000만원","5,000만원",true,true,현재 data.js 기본 선택값
+A0201,integrated-treatment,암,암 치료,암 통합 치료,selectable_amount,3,"8,000만원","8,000만원",true,false,현재 data.js options 분해값
+A0202,integrated-treatment-noncovered,암,암 치료,암 통합 치료(비급여포함),selectable_amount,1,미가입,미가입,false,true,현재 data.js 기본 선택값
+A0202,integrated-treatment-noncovered,암,암 치료,암 통합 치료(비급여포함),selectable_amount,2,"5,000만원","5,000만원",true,false,현재 data.js options 분해값
+A0202,integrated-treatment-noncovered,암,암 치료,암 통합 치료(비급여포함),selectable_amount,3,"8,000만원","8,000만원",true,false,현재 data.js options 분해값
+A0203,direct-treatment,암,암 치료,암 치료,selectable_amount,1,미가입,미가입,false,true,현재 data.js 기본 선택값
+A0203,direct-treatment,암,암 치료,암 치료,selectable_amount,2,100만원,100만원,true,false,현재 data.js options 분해값
+A0203,direct-treatment,암,암 치료,암 치료,selectable_amount,3,500만원,500만원,true,false,현재 data.js options 분해값
+A0203,direct-treatment,암,암 치료,암 치료,selectable_amount,4,"1,000만원","1,000만원",true,false,현재 data.js options 분해값
+A0204,small-direct-treatment,암,암 치료,암 치료(소액암),selectable_amount,1,미가입,미가입,false,true,현재 data.js 기본 선택값
+A0204,small-direct-treatment,암,암 치료,암 치료(소액암),selectable_amount,2,100만원,100만원,true,false,현재 data.js options 분해값
+A0204,small-direct-treatment,암,암 치료,암 치료(소액암),selectable_amount,3,200만원,200만원,true,false,현재 data.js options 분해값
+A0205,tertiary-treatment,암,암 치료,암 상급병원 치료,selectable_amount,1,미가입,미가입,false,true,현재 data.js 기본 선택값
+A0205,tertiary-treatment,암,암 치료,암 상급병원 치료,selectable_amount,2,100만원,100만원,true,false,현재 data.js options 분해값
+A0205,tertiary-treatment,암,암 치료,암 상급병원 치료,selectable_amount,3,500만원,500만원,true,false,현재 data.js options 분해값
+A0205,tertiary-treatment,암,암 치료,암 상급병원 치료,selectable_amount,4,"1,000만원","1,000만원",true,false,현재 data.js options 분해값
+A0206,tertiary-treatment-small,암,암 치료,암 상급병원 치료(소액암),selectable_amount,1,미가입,미가입,false,true,현재 data.js 기본 선택값
+A0206,tertiary-treatment-small,암,암 치료,암 상급병원 치료(소액암),selectable_amount,2,100만원,100만원,true,false,현재 data.js options 분해값
+A0206,tertiary-treatment-small,암,암 치료,암 상급병원 치료(소액암),selectable_amount,3,200만원,200만원,true,false,현재 data.js options 분해값
+A0207,complex-treatment,암,암 치료,암 복합 치료,selectable_amount,1,미가입,미가입,false,true,현재 data.js 기본 선택값
+A0207,complex-treatment,암,암 치료,암 복합 치료,selectable_amount,2,100만원,100만원,true,false,현재 data.js options 분해값
+A0207,complex-treatment,암,암 치료,암 복합 치료,selectable_amount,3,500만원,500만원,true,false,현재 data.js options 분해값
+A0207,complex-treatment,암,암 치료,암 복합 치료,selectable_amount,4,"1,000만원","1,000만원",true,false,현재 data.js options 분해값
+A0208,,암,암 치료,암 복합 치료(소액암),selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+A0208,,암,암 치료,암 복합 치료(소액암),selectable_amount,2,100만원,100만원,true,false,원본 CSV 분해값
+A0208,,암,암 치료,암 복합 치료(소액암),selectable_amount,3,200만원,200만원,true,false,원본 CSV 분해값
+A0209,drug-treatment,암,암 치료,항암 약물 치료,selectable_amount,1,미가입,미가입,false,true,현재 data.js 기본 선택값
+A0209,drug-treatment,암,암 치료,항암 약물 치료,selectable_amount,2,"1,000만원","1,000만원",true,false,현재 data.js options 분해값
+A0209,drug-treatment,암,암 치료,항암 약물 치료,selectable_amount,3,"1,500만원","1,500만원",true,false,현재 data.js options 분해값
+A0209,drug-treatment,암,암 치료,항암 약물 치료,selectable_amount,4,"3,000만원","3,000만원",true,false,현재 data.js options 분해값
+A0210,radiation-treatment,암,암 치료,항암 방사선 치료,selectable_amount,1,미가입,미가입,false,true,현재 data.js 기본 선택값
+A0210,radiation-treatment,암,암 치료,항암 방사선 치료,selectable_amount,2,"1,000만원","1,000만원",true,false,현재 data.js options 분해값
+A0210,radiation-treatment,암,암 치료,항암 방사선 치료,selectable_amount,3,"1,500만원","1,500만원",true,false,현재 data.js options 분해값
+A0210,radiation-treatment,암,암 치료,항암 방사선 치료,selectable_amount,4,"3,000만원","3,000만원",true,false,현재 data.js options 분해값
+A0301,premium-treatment,암,프리미엄 암 치료,암 고액 치료(8종),selectable_amount,1,미가입,미가입,false,false,현재 data.js options 분해값
+A0301,premium-treatment,암,프리미엄 암 치료,암 고액 치료(8종),selectable_amount,2,100만원,100만원,true,false,현재 data.js options 분해값
+A0301,premium-treatment,암,프리미엄 암 치료,암 고액 치료(8종),selectable_amount,3,500만원,500만원,true,false,현재 data.js options 분해값
+A0301,premium-treatment,암,프리미엄 암 치료,암 고액 치료(8종),selectable_amount,4,"1,000만원","1,000만원",true,false,현재 data.js options 분해값
+A0301,premium-treatment,암,프리미엄 암 치료,암 고액 치료(8종),selectable_amount,5,"5,000만원","5,000만원",true,true,현재 data.js 기본 선택값
+A0302,,암,프리미엄 암 치료,암 고액 치료(3종),selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+A0302,,암,프리미엄 암 치료,암 고액 치료(3종),selectable_amount,2,100만원,100만원,true,false,원본 CSV 분해값
+A0302,,암,프리미엄 암 치료,암 고액 치료(3종),selectable_amount,3,500만원,500만원,true,false,원본 CSV 분해값
+A0302,,암,프리미엄 암 치료,암 고액 치료(3종),selectable_amount,4,"1,000만원","1,000만원",true,false,원본 CSV 분해값
+A0303,,암,프리미엄 암 치료,항암 중입자 치료,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+A0303,,암,프리미엄 암 치료,항암 중입자 치료,selectable_amount,2,"1,000만원","1,000만원",true,false,원본 CSV 분해값
+A0303,,암,프리미엄 암 치료,항암 중입자 치료,selectable_amount,3,"3,000만원","3,000만원",true,false,원본 CSV 분해값
+A0303,,암,프리미엄 암 치료,항암 중입자 치료,selectable_amount,4,"5,000만원","5,000만원",true,false,원본 CSV 분해값
+A0304,,암,프리미엄 암 치료,항암 표적 약물·방사선 치료(리간드 치료 등),single_choice_only,1,"8,000만원","8,000만원",true,true,원본 CSV상 단일 금액
+A0305,,암,프리미엄 암 치료,암 진단 및 정밀 치료(비급여 포함),single_choice_only,1,"2,000만원","2,000만원",true,true,원본 CSV상 단일 금액
+B0101,,뇌·심장,뇌·심장 진단,뇌혈관질환,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+B0101,,뇌·심장,뇌·심장 진단,뇌혈관질환,selectable_amount,2,500만원,500만원,true,false,원본 CSV 분해값
+B0101,,뇌·심장,뇌·심장 진단,뇌혈관질환,selectable_amount,3,"1,000만원","1,000만원",true,false,원본 CSV 분해값
+B0101,,뇌·심장,뇌·심장 진단,뇌혈관질환,selectable_amount,4,"2,000만원","2,000만원",true,false,원본 CSV 분해값
+B0102,,뇌·심장,뇌·심장 진단,심장질환,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+B0102,,뇌·심장,뇌·심장 진단,심장질환,selectable_amount,2,500만원,500만원,true,false,원본 CSV 분해값
+B0102,,뇌·심장,뇌·심장 진단,심장질환,selectable_amount,3,"1,000만원","1,000만원",true,false,원본 CSV 분해값
+B0102,,뇌·심장,뇌·심장 진단,심장질환,selectable_amount,4,"2,000만원","2,000만원",true,false,원본 CSV 분해값
+B0103,,뇌·심장,뇌·심장 진단,부정맥,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+B0103,,뇌·심장,뇌·심장 진단,부정맥,selectable_amount,2,100만원,100만원,true,false,원본 CSV 분해값
+B0103,,뇌·심장,뇌·심장 진단,부정맥,selectable_amount,3,500만원,500만원,true,false,원본 CSV 분해값
+B0201,,뇌·심장,뇌·심장 치료,주요 순환계 질환 통합 치료,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+B0201,,뇌·심장,뇌·심장 치료,주요 순환계 질환 통합 치료,selectable_amount,2,"5,000만원","5,000만원",true,false,원본 CSV 분해값
+B0201,,뇌·심장,뇌·심장 치료,주요 순환계 질환 통합 치료,selectable_amount,3,"8,000만원","8,000만원",true,false,원본 CSV 분해값
+B0202,,뇌·심장,뇌·심장 치료,주요 순환계 질환 특정 치료,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+B0202,,뇌·심장,뇌·심장 치료,주요 순환계 질환 특정 치료,selectable_amount,2,100만원,100만원,true,false,원본 CSV 분해값
+B0202,,뇌·심장,뇌·심장 치료,주요 순환계 질환 특정 치료,selectable_amount,3,500만원,500만원,true,false,원본 CSV 분해값
+B0202,,뇌·심장,뇌·심장 치료,주요 순환계 질환 특정 치료,selectable_amount,4,"1,000만원","1,000만원",true,false,원본 CSV 분해값
+B0203,,뇌·심장,뇌·심장 치료,주요 순환계 질환 치료,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+B0203,,뇌·심장,뇌·심장 치료,주요 순환계 질환 치료,selectable_amount,2,100만원,100만원,true,false,원본 CSV 분해값
+B0203,,뇌·심장,뇌·심장 치료,주요 순환계 질환 치료,selectable_amount,3,500만원,500만원,true,false,원본 CSV 분해값
+B0203,,뇌·심장,뇌·심장 치료,주요 순환계 질환 치료,selectable_amount,4,"1,000만원","1,000만원",true,false,원본 CSV 분해값
+B0204,,뇌·심장,뇌·심장 치료,주요 순환계 질환 복합 치료,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+B0204,,뇌·심장,뇌·심장 치료,주요 순환계 질환 복합 치료,selectable_amount,2,100만원,100만원,true,false,원본 CSV 분해값
+B0204,,뇌·심장,뇌·심장 치료,주요 순환계 질환 복합 치료,selectable_amount,3,500만원,500만원,true,false,원본 CSV 분해값
+B0204,,뇌·심장,뇌·심장 치료,주요 순환계 질환 복합 치료,selectable_amount,4,"1,000만원","1,000만원",true,false,원본 CSV 분해값
+C0101,,입원,입원,1인실 입원,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+C0101,,입원,입원,1인실 입원,selectable_amount,2,10만원,10만원,true,false,원본 CSV 분해값
+C0101,,입원,입원,1인실 입원,selectable_amount,3,15만원,15만원,true,false,원본 CSV 분해값
+C0102,,입원,입원,2-3인실 입원,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+C0102,,입원,입원,2-3인실 입원,selectable_amount,2,5만원,5만원,true,false,원본 CSV 분해값
+C0102,,입원,입원,2-3인실 입원,selectable_amount,3,7만원,7만원,true,false,원본 CSV 분해값
+D0101,,간병,간병(일당),간병인(180일 이전),selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+D0101,,간병,간병(일당),간병인(180일 이전),selectable_amount,2,3만원,3만원,true,false,원본 CSV 분해값
+D0101,,간병,간병(일당),간병인(180일 이전),selectable_amount,3,7만원,7만원,true,false,원본 CSV 분해값
+D0102,,간병,간병(일당),간병인(181일 이후),selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+D0102,,간병,간병(일당),간병인(181일 이후),selectable_amount,2,4만원,4만원,true,false,원본 CSV 분해값
+D0102,,간병,간병(일당),간병인(181일 이후),selectable_amount,3,7만원,7만원,true,false,원본 CSV 분해값
+D0103,,간병,간병(일당),간호간병서비스,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+D0103,,간병,간병(일당),간호간병서비스,selectable_amount,2,7만원,7만원,true,false,원본 CSV 분해값
+D0103,,간병,간병(일당),간호간병서비스,selectable_amount,3,10만원,10만원,true,false,원본 CSV 분해값
+E0101,,수술,수술,질병·사고 수술(수술 종류 상관없이 동일 보장),selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+E0101,,수술,수술,질병·사고 수술(수술 종류 상관없이 동일 보장),selectable_amount,2,2만원,2만원,true,false,원본 CSV 분해값
+E0101,,수술,수술,질병·사고 수술(수술 종류 상관없이 동일 보장),selectable_amount,3,4만원,4만원,true,false,원본 CSV 분해값
+E0101,,수술,수술,질병·사고 수술(수술 종류 상관없이 동일 보장),selectable_amount,4,7만원,7만원,true,false,원본 CSV 분해값
+E0102,,수술,수술,파워 수술(수술 종류에 따라 다르게 보장),selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+E0102,,수술,수술,파워 수술(수술 종류에 따라 다르게 보장),selectable_amount,2,500만원,500만원,true,false,원본 CSV 분해값
+E0102,,수술,수술,파워 수술(수술 종류에 따라 다르게 보장),selectable_amount,3,"1,000만원","1,000만원",true,false,원본 CSV 분해값
+F0101,,치매,치매,치매 진단,single_choice_only,1,100만원,100만원,true,true,원본 CSV상 단일 금액
+F0102,,치매,치매,치매 진단(당뇨 발병 후),single_choice_only,1,50만원,50만원,true,true,원본 CSV상 단일 금액
+F0103,,치매,치매,치매 통합 치료(레켐비 등),single_choice_only,1,"2,000만원","2,000만원",true,true,원본 CSV상 단일 금액
+F0104,,치매,치매,치매 통원 치료,single_choice_only,1,1만원,1만원,true,true,원본 CSV상 단일 금액
+G0101,,일상생활,일상생활,골절·깁스 치료,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+G0101,,일상생활,일상생활,골절·깁스 치료,selectable_amount,2,100만원,100만원,true,false,원본 CSV 분해값
+G0101,,일상생활,일상생활,골절·깁스 치료,selectable_amount,3,500만원,500만원,true,false,원본 CSV 분해값
+G0101,,일상생활,일상생활,골절·깁스 치료,selectable_amount,4,"1,000만원","1,000만원",true,false,원본 CSV 분해값
+G0102,,일상생활,일상생활,독감 치료,selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+G0102,,일상생활,일상생활,독감 치료,selectable_amount,2,3만원,3만원,true,false,원본 CSV 분해값
+G0102,,일상생활,일상생활,독감 치료,selectable_amount,3,10만원,10만원,true,false,원본 CSV 분해값
+G0103,,일상생활,일상생활,"중장년 질환(골다공증, 통풍, 대상포진, 관절염)",selectable_amount,1,미가입,미가입,false,true,원본 CSV 분해값
+G0103,,일상생활,일상생활,"중장년 질환(골다공증, 통풍, 대상포진, 관절염)",selectable_amount,2,100만원,100만원,true,false,원본 CSV 분해값
+G0103,,일상생활,일상생활,"중장년 질환(골다공증, 통풍, 대상포진, 관절염)",selectable_amount,3,200만원,200만원,true,false,원본 CSV 분해값

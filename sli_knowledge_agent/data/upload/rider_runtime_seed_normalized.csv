@@ -1,0 +1,41 @@
+product_rider_code,datajs_rider_id,datajs_label,default_selected_amount,default_enabled,display_monthly_premium_krw,runtime_source_type,operator_note
+A0101,integrated-cancer,통합암,미가입,false,0,prototype_seed_static,현재 data.js 초기값. 운영계 실서버에서는 quote 결과로 대체 권장
+A0102,integrated-small-cancer,통합소액암,미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0103,general-cancer,일반암,"1,000만원",true,0,prototype_seed_static,현재 data.js 초기값
+A0104,,,,,,not_seeded,data.js 미연결
+A0201,integrated-treatment,암 통합 치료,"5,000만원",true,15048,prototype_seed_static,현재 data.js 초기값
+A0202,integrated-treatment-noncovered,암 통합 치료(비급여포함),미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0203,direct-treatment,암 치료,미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0204,small-direct-treatment,암 치료(소액암),미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0205,tertiary-treatment,암 상급병원 치료,미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0206,tertiary-treatment-small,암 상급병원 치료(소액암),미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0207,complex-treatment,암 복합 치료,미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0208,,,,,,not_seeded,data.js 미연결
+A0209,drug-treatment,항암 약물 치료,미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0210,radiation-treatment,항암 방사선 치료,미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0301,premium-treatment,암 고액 치료(8종),"5,000만원",true,6398,prototype_seed_static,현재 data.js 초기값
+A0302,,,,,,not_seeded,data.js 미연결
+A0303,,,,,,not_seeded,data.js 미연결
+A0304,,,,,,not_seeded,data.js 미연결
+A0305,,,,,,not_seeded,data.js 미연결
+B0101,,,,,,not_seeded,data.js 미연결
+B0102,,,,,,not_seeded,data.js 미연결
+B0103,,,,,,not_seeded,data.js 미연결
+B0201,,,,,,not_seeded,data.js 미연결
+B0202,,,,,,not_seeded,data.js 미연결
+B0203,,,,,,not_seeded,data.js 미연결
+B0204,,,,,,not_seeded,data.js 미연결
+C0101,,,,,,not_seeded,data.js 미연결
+C0102,,,,,,not_seeded,data.js 미연결
+D0101,,,,,,not_seeded,data.js 미연결
+D0102,,,,,,not_seeded,data.js 미연결
+D0103,,,,,,not_seeded,data.js 미연결
+E0101,,,,,,not_seeded,data.js 미연결
+E0102,,,,,,not_seeded,data.js 미연결
+F0101,,,,,,not_seeded,data.js 미연결
+F0102,,,,,,not_seeded,data.js 미연결
+F0103,,,,,,not_seeded,data.js 미연결
+F0104,,,,,,not_seeded,data.js 미연결
+G0101,,,,,,not_seeded,data.js 미연결
+G0102,,,,,,not_seeded,data.js 미연결
+G0103,,,,,,not_seeded,data.js 미연결

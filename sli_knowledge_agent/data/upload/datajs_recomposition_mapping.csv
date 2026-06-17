@@ -1,0 +1,32 @@
+datajs_object,datajs_field_or_path,source_file,join_key,source_columns,recomposition_rule,notes
+terms,terms[term_id].label,term_dictionary_normalized.csv,term_id,term_label,term_id를 key로 객체 생성,data.js terms의 기본 제목
+terms,terms[term_id].aliases,term_dictionary_normalized.csv,term_id,aliases_csv,"'|' 또는 단일 문자열 기준 배열화",data.js terms.aliases
+terms,terms[term_id].plainSummary,term_dictionary_normalized.csv,term_id,plain_summary,문자열 그대로,data.js terms.plainSummary
+terms,terms[term_id].whyItMatters,term_dictionary_normalized.csv,term_id,why_it_matters,문자열 그대로,data.js terms.whyItMatters
+terms,terms[term_id].fitCase,term_dictionary_normalized.csv,term_id,fit_case,문자열 그대로,data.js terms.fitCase
+terms,terms[term_id].caution,term_dictionary_normalized.csv,term_id,caution,문자열 그대로,data.js terms.caution
+terms,terms[term_id].detailExamples,term_dictionary_normalized.csv,term_id,detail_example,단일 항목이면 1개 배열,data.js terms.detailExamples
+terms,terms[term_id].compareTargets,term_dictionary_normalized.csv,term_id,compare_target_ids_csv,"'|' 또는 단일 문자열 기준 배열화",data.js terms.compareTargets
+terms,terms[term_id].legalNotice,term_dictionary_normalized.csv,term_id,legal_notice,문자열 그대로,data.js terms.legalNotice
+comparisons,comparisons[comparison_id].title,comparison_mapping_normalized.csv,comparison_id,comparison_id,별도 title 생성 규칙 또는 comparison_id로부터 표시명 유지,현재 data.js는 사람이 읽는 title 필드 보유
+comparisons,comparisons[comparison_id].leftTitle,comparison_mapping_normalized.csv,comparison_id,left_title,문자열 그대로,data.js comparisons.leftTitle
+comparisons,comparisons[comparison_id].leftFit,comparison_mapping_normalized.csv,comparison_id,left_fit_case,문자열 그대로,data.js comparisons.leftFit
+comparisons,comparisons[comparison_id].rightTitle,comparison_mapping_normalized.csv,comparison_id,right_title,문자열 그대로,data.js comparisons.rightTitle
+comparisons,comparisons[comparison_id].rightFit,comparison_mapping_normalized.csv,comparison_id,right_fit_case,문자열 그대로,data.js comparisons.rightFit
+comparisons,comparisons[comparison_id].differencePoints,comparison_mapping_normalized.csv,comparison_id,"difference_point_1|difference_point_2|difference_point_3",3개 배열로 조합,data.js comparisons.differencePoints
+comparisons,comparisons[comparison_id].caution,comparison_mapping_normalized.csv,comparison_id,legal_notice,문자열 그대로,data.js comparisons.caution
+guideMessages,guideMessages.toggle_on,event_guidance_normalized.csv,event_id=guide_toggle_on,"title_template|message_template","{ title, message } 객체 생성",data.js guideMessages.toggle_on
+guideMessages,guideMessages.toggle_off,event_guidance_normalized.csv,event_id=guide_toggle_off,"title_template|message_template","{ title, message } 객체 생성",data.js guideMessages.toggle_off
+guideMessages,guideMessages.amount_change,event_guidance_normalized.csv,event_id=guide_amount_change,"title_template|message_template","{ title, message } 객체 생성",data.js guideMessages.amount_change
+riders,riders[].id,rider_catalog_normalized.csv,product_rider_code,datajs_rider_id,행 단위 배열 생성 시 id로 사용,data.js riders[].id
+riders,riders[].section,rider_catalog_normalized.csv,product_rider_code,datajs_section,문자열 그대로,data.js riders[].section
+riders,riders[].label,rider_catalog_normalized.csv,product_rider_code,datajs_label,문자열 그대로,data.js riders[].label
+riders,riders[].termIds,rider_catalog_normalized.csv,product_rider_code,linked_term_ids,"'|' 또는 단일 문자열 기준 배열화",data.js riders[].termIds
+riders,riders[].compareId,rider_catalog_normalized.csv,product_rider_code,linked_comparison_id,문자열 그대로,data.js riders[].compareId
+riders,riders[].helper,rider_helper_normalized.csv,datajs_rider_id,helper_text,rider_catalog의 datajs_rider_id와 join,data.js riders[].helper
+riders,riders[].description,rider_display_copy_normalized.csv,product_rider_code,display_description,문자열 그대로,data.js riders[].description 운영 원본
+riders,riders[].premium,rider_runtime_seed_normalized.csv,product_rider_code,display_monthly_premium_krw,숫자 그대로,data.js riders[].premium 프로토타입 시드값. 운영계에서는 quote runtime 값으로 치환 권장
+riders,riders[].selectedAmount,rider_runtime_seed_normalized.csv,product_rider_code,default_selected_amount,문자열 그대로,data.js riders[].selectedAmount 초기 시드값
+riders,riders[].options,rider_option_catalog_normalized.csv,product_rider_code,"option_value_normalized + option_order","product_rider_code별 option_order 정렬 후 배열화",data.js riders[].options 운영 원본
+riders,riders[].consultTopic,rider_display_copy_normalized.csv,product_rider_code,consult_topic,문자열 그대로,data.js riders[].consultTopic 운영 원본
+riders,riders[].enabled,rider_runtime_seed_normalized.csv,product_rider_code,default_enabled,boolean 그대로,app.js 초기 state 계산값을 명시적으로 외부화
