@@ -281,6 +281,9 @@ function renderSections() {
 }
 
 function renderRiderRow(rider) {
+  const compareButton = rider.compareId
+    ? `<button type="button" class="mini-link" data-compare-id="${rider.compareId}" data-rider-id="${rider.id}">비교 보기</button>`
+    : "";
   const descriptionMarkup = rider.description
     ? `<p class="guide-inline">${highlightTerms(rider.description, rider.termIds, `${rider.id}-desc`)}</p>`
     : "";
@@ -302,6 +305,7 @@ function renderRiderRow(rider) {
           <span>${highlightTerms(rider.label, rider.termIds, `${rider.id}-label`)}</span>
           ${helpButton}
           ${descriptionMarkup}
+          ${compareButton ? `<div class="inline-actions">${compareButton}</div>` : ""}
         </div>
         <div class="val">
           <button type="button" class="btn-more btn--black">
