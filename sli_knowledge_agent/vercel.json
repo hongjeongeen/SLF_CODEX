@@ -1,4 +1,18 @@
 {
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/result-1",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/result-1.html",
+      "destination": "/index.html"
+    }
+  ],
   "cleanUrls": true,
   "trailingSlash": false
 }
