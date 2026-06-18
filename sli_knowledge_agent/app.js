@@ -27,7 +27,6 @@ const elements = {
   termLegal: document.getElementById("termLegal"),
   termExamplesBlock: document.getElementById("termExamplesBlock"),
   termExamples: document.getElementById("termExamples"),
-  openCompareFromTerm: document.getElementById("openCompareFromTerm"),
   openConsultFromTerm: document.getElementById("openConsultFromTerm"),
   comparisonTitle: document.getElementById("comparisonTitle"),
   comparisonPoints: document.getElementById("comparisonPoints"),
@@ -419,7 +418,6 @@ function openTermSheet(termId) {
   elements.termLegal.textContent = term.legalNotice;
   elements.termExamples.innerHTML = (term.detailExamples || []).map((item) => `<li>${item}</li>`).join("");
   elements.termExamplesBlock.classList.toggle("hidden", !(term.detailExamples || []).length);
-  elements.openCompareFromTerm.disabled = !(term.compareTargets || []).length;
   openOverlay(elements.termSheet);
 }
 
@@ -744,12 +742,6 @@ function bindEvents() {
     } else if (state.lastGuideContext.termId) {
       openTermSheet(state.lastGuideContext.termId);
     }
-  });
-
-  elements.openCompareFromTerm.addEventListener("click", () => {
-    const term = window.prototypeData.terms[state.currentTermId];
-    const targetCompareId = term?.compareTargets?.[0];
-    if (targetCompareId) openComparison(targetCompareId);
   });
 
   elements.openConsultFromTerm.addEventListener("click", () => {
