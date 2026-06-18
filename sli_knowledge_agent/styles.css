@@ -867,7 +867,7 @@ button {
 .item-copy > span {
   display: inline-block;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.5;
   color: #111827;
 }
@@ -962,7 +962,7 @@ button {
   border-radius: 4px;
   background: transparent;
   color: inherit;
-  font-weight: 400;
+  font-weight: 600;
   cursor: pointer;
   isolation: isolate;
 }

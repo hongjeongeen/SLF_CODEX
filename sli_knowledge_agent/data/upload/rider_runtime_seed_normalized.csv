@@ -1,6 +1,6 @@
 product_rider_code,datajs_rider_id,datajs_label,default_selected_amount,default_enabled,display_monthly_premium_krw,runtime_source_type,operator_note
 A0101,integrated-cancer,통합암,"3,000만원",true,0,prototype_seed_static,암 섹션 최대 가입금액 기본값으로 조정
-A0102,integrated-small-cancer,통합소액암,미가입,false,0,prototype_seed_static,현재 data.js 초기값
+A0102,integrated-small-cancer,통합소액암,200만원,true,0,prototype_seed_static,통합소액암 디폴트 가입금액 200만원으로 조정
 A0103,general-cancer,일반암,"3,000만원",true,0,prototype_seed_static,암 섹션 최대 가입금액 기본값으로 조정
 A0104,,,"200만원",true,0,prototype_seed_static,암 섹션 최대 가입금액 기본값으로 조정
 A0201,integrated-treatment,암 통합 치료,"8,000만원",true,15048,prototype_seed_static,암 섹션 최대 가입금액 기본값으로 조정
