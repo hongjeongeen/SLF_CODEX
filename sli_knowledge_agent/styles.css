@@ -108,8 +108,11 @@ button {
 }
 
 .direct-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 430px);
   z-index: 20;
   background: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid #eef2f7;
@@ -166,7 +169,7 @@ button {
 }
 
 .result-page {
-  padding: 0 0 196px;
+  padding: 99px 0 196px;
 }
 
 .top-filter-area,
