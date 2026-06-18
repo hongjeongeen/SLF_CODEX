@@ -53,6 +53,10 @@ function resetInitialScrollPosition() {
 
 function createInitialState() {
   const categoryList = window.prototypeData.categories || [];
+  const seededRiders = window.prototypeData.riders.map((rider) => ({
+    ...rider,
+    enabled: typeof rider.enabled === "boolean" ? rider.enabled : rider.selectedAmount !== UNSELECTED_AMOUNT
+  }));
   const defaultOpenSections = categoryList.length
     ? categoryList
         .filter((category) => (category.label || category.majorCategory || "").includes("암"))
@@ -60,17 +64,23 @@ function createInitialState() {
     : [...new Set(window.prototypeData.riders
         .map((rider) => rider.section)
         .filter((section) => typeof section === "string" && section.includes("암")))];
+  const defaultOpenMiddleGroups = new Set(
+    seededRiders.map((rider) =>
+      getMiddleGroupKey(
+        rider.majorCategory || rider.section || "기타",
+        rider.middleCategory || rider.section || "기타"
+      )
+    )
+  );
 
   return {
-    riders: window.prototypeData.riders.map((rider) => ({
-      ...rider,
-      enabled: typeof rider.enabled === "boolean" ? rider.enabled : rider.selectedAmount !== UNSELECTED_AMOUNT
-    })),
+    riders: seededRiders,
     currentTermId: null,
     currentComparisonId: null,
     currentConsultSource: null,
     lastGuideContext: null,
     openSections: new Set(defaultOpenSections),
+    openMiddleGroups: defaultOpenMiddleGroups,
     revealedHighlightKeys: new Set(),
     hasShownHighlightHint: false
   };
@@ -191,6 +201,10 @@ function groupRidersByCategory(riders) {
   }, {});
 }
 
+function getMiddleGroupKey(majorCategory, middleCategory) {
+  return `${majorCategory}::${middleCategory}`;
+}
+
 function renderChipSummary(chipSummary) {
   const chips = (chipSummary || "")
     .split(",")
@@ -218,14 +232,23 @@ function renderSections() {
         .filter((group) => (grouped[majorCategory]?.[group.middleCategory] || []).length)
         .map((group) => {
           const riders = grouped[majorCategory][group.middleCategory];
+          const middleGroupKey = getMiddleGroupKey(majorCategory, group.middleCategory);
+          const isMiddleOpen = state.openMiddleGroups.has(middleGroupKey);
 
           return `
             <div class="middle-group">
               <div class="middle-head">
                 <h3 class="middle-title">${group.label}</h3>
-                <span class="middle-count">${riders.length}개</span>
+                <label class="switch-wrap middle-switch">
+                  <input
+                    type="checkbox"
+                    data-middle-toggle="${middleGroupKey}"
+                    ${isMiddleOpen ? "checked" : ""}
+                  />
+                  <span class="switch-ui"></span>
+                </label>
               </div>
-              <ul class="data-list">
+              <ul class="data-list" style="display: ${isMiddleOpen ? "block" : "none"};">
                 ${riders.map(renderRiderRow).join("")}
               </ul>
             </div>
@@ -258,9 +281,6 @@ function renderSections() {
 }
 
 function renderRiderRow(rider) {
-  const compareButton = rider.compareId
-    ? `<button type="button" class="mini-link" data-compare-id="${rider.compareId}" data-rider-id="${rider.id}">비교 보기</button>`
-    : "";
   const descriptionMarkup = rider.description
     ? `<p class="guide-inline">${highlightTerms(rider.description, rider.termIds, `${rider.id}-desc`)}</p>`
     : "";
@@ -276,24 +296,17 @@ function renderRiderRow(rider) {
         `
     : "";
   return `
-    <li class="${rider.enabled ? "" : "off"}">
+    <li class="${rider.selectedAmount !== UNSELECTED_AMOUNT ? "" : "off"}">
       <div class="item">
         <div class="item-copy">
           <span>${highlightTerms(rider.label, rider.termIds, `${rider.id}-label`)}</span>
           ${helpButton}
           ${descriptionMarkup}
-          <div class="inline-actions">
-            ${compareButton}
-          </div>
         </div>
         <div class="val">
-          <label class="switch-wrap">
-            <input type="checkbox" data-toggle-id="${rider.id}" ${rider.enabled ? "checked" : ""} />
-            <span class="switch-ui"></span>
-          </label>
           <button type="button" class="btn-more btn--black">
             <span>
-              <select data-amount-id="${rider.id}" ${!rider.enabled ? "disabled" : ""}>
+              <select data-amount-id="${rider.id}">
                 ${rider.options
                   .map(
                     (option) => `<option value="${option}" ${option === rider.selectedAmount ? "selected" : ""}>${option}</option>`
@@ -302,7 +315,6 @@ function renderRiderRow(rider) {
               </select>
             </span>
           </button>
-          <p class="txt-fee">${rider.premium ? `월 ${formatWon(rider.premium)}` : ""}</p>
         </div>
       </div>
     </li>
@@ -363,6 +375,16 @@ function updateRiderAmount(riderId, amount) {
   });
   renderAll();
   showGuide(triggerType, riderId);
+}
+
+function toggleMiddleGroup(middleGroupKey, isOpen) {
+  if (isOpen) {
+    state.openMiddleGroups.add(middleGroupKey);
+  } else {
+    state.openMiddleGroups.delete(middleGroupKey);
+  }
+  renderSections();
+  setupHighlightAnimations();
 }
 
 function openOverlay(target) {
@@ -594,6 +616,12 @@ function handleProductSectionClick(event) {
 }
 
 function handleProductSectionChange(event) {
+  const middleToggle = event.target.closest("[data-middle-toggle]");
+  if (middleToggle) {
+    toggleMiddleGroup(middleToggle.dataset.middleToggle, middleToggle.checked);
+    return;
+  }
+
   const toggle = event.target.closest("[data-toggle-id]");
   if (toggle) {
     updateRiderToggle(toggle.dataset.toggleId, toggle.checked);

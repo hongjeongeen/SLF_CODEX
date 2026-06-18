@@ -773,11 +773,12 @@ button {
 
 .info-box {
   border-top: 1px solid #f1f4f8;
-  padding-top: var(--space-4);
+  padding-top: 6px;
 }
 
 .middle-group + .middle-group {
-  margin-top: var(--space-4);
+  margin-top: 0;
+  border-top: 1px solid #f1f4f8;
 }
 
 .middle-head {
@@ -785,15 +786,16 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  margin-bottom: var(--space-2);
+  padding: 18px 0 14px;
+  margin-bottom: 0;
 }
 
 .middle-title {
   margin: 0;
-  font-size: 13px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 700;
   line-height: var(--leading-tight);
-  color: #2a3441;
+  color: #111927;
 }
 
 .middle-count {
@@ -807,6 +809,10 @@ button {
   color: #607086;
   font-size: 10px;
   font-weight: 400;
+}
+
+.middle-switch {
+  flex-shrink: 0;
 }
 
 .info-head {
@@ -857,16 +863,17 @@ button {
 
 .item {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-3);
-  padding: var(--space-4) 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 0 0 18px;
 }
 
 .item-copy > span {
   display: inline-block;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.6;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #778395;
 }
 
 .tooltip.replacement {
@@ -926,10 +933,10 @@ button {
 }
 
 .guide-inline {
-  margin: var(--space-2) 0 0;
-  color: #657283;
+  margin: 8px 0 0;
+  color: #8a95a5;
   font-size: var(--text-xs);
-  line-height: var(--leading-base);
+  line-height: 1.7;
 }
 
 .inline-actions {
@@ -1024,11 +1031,11 @@ button {
 }
 
 .val {
-  min-width: 112px;
+  min-width: 118px;
   display: grid;
   justify-items: end;
   align-content: start;
-  gap: 8px;
+  gap: 0;
 }
 
 .switch-wrap {
@@ -1072,22 +1079,24 @@ button {
 }
 
 .btn-more {
-  width: 110px;
-  min-height: 36px;
+  width: 118px;
+  min-height: 42px;
   padding: 0;
-  border-radius: 10px;
-  border: 1px solid #d8e0eb;
+  border-radius: 14px;
+  border: 1px solid #d7dfeb;
   background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
 .btn-more select {
   width: 100%;
-  height: 36px;
+  height: 42px;
   border: 0;
   background: transparent;
-  padding: 0 10px;
-  font-size: var(--text-xs);
-  color: var(--text);
+  padding: 0 14px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #5d6878;
 }
 
 .txt-fee {
