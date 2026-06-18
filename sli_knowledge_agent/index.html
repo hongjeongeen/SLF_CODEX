@@ -204,22 +204,19 @@
       <div class="sheet-header">
         <div>
           <p class="sheet-kicker">상담 연결</p>
-          <h2>권유 없이 필요한 내용만 상담해드려요</h2>
+          <h2 id="consultTitle">가입 권유 없이 궁금한 부분만<br>부담없이 물어보세요</h2>
         </div>
         <button class="icon-btn icon-btn-close" aria-label="닫기" data-close="consultCard" type="button"><span aria-hidden="true">×</span></button>
       </div>
       <div class="sheet-body">
-        <p class="consult-lead">
-          지금 보고 있던 항목과 막혔던 지점만 전달하는 흐름이라 처음부터 다시 설명하지 않아도 되도록 맥락을 함께 넘겨드려요.
-        </p>
+        <p class="consult-lead" id="consultLead">지금 보고 있던 보장 내용을 공유해서 궁금한 부분만 상담 받을 수 있어요.</p>
         <div class="handoff-box">
-          <p class="handoff-label">상담으로 바로 전달되는 내용</p>
+          <p class="handoff-label" id="consultContextTitle">상담에서 공유받는 내용</p>
           <ul id="consultContext"></ul>
         </div>
-        <p class="legal-note">세부 기준과 지급 조건은 약관을 꼭 확인해 주세요.</p>
       </div>
       <div class="sheet-footer">
-        <a class="btn btn-pry consult-call" href="tel:1588-0000">1588-0000 연결</a>
+        <a class="btn btn-pry consult-call" id="consultCallCta" href="tel:1588-0000">상담 예약하기</a>
       </div>
     </section>
 

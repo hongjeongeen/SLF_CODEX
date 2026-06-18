@@ -15,6 +15,10 @@ const elements = {
   termSheet: document.getElementById("termSheet"),
   comparisonDrawer: document.getElementById("comparisonDrawer"),
   consultCard: document.getElementById("consultCard"),
+  consultTitle: document.getElementById("consultTitle"),
+  consultLead: document.getElementById("consultLead"),
+  consultContextTitle: document.getElementById("consultContextTitle"),
+  consultCallCta: document.getElementById("consultCallCta"),
   termSheetTitle: document.getElementById("termSheetTitle"),
   termPlainSummary: document.getElementById("termPlainSummary"),
   termWhy: document.getElementById("termWhy"),
@@ -406,6 +410,12 @@ function openComparison(compareId) {
 function openConsult(source) {
   state.currentConsultSource = source;
   const lines = [];
+  const consultTemplate = window.prototypeData.consultTemplate || {};
+
+  elements.consultTitle.innerHTML = consultTemplate.title || "";
+  elements.consultLead.textContent = consultTemplate.introCopy || "";
+  elements.consultContextTitle.textContent = consultTemplate.contextBlockTitle || "";
+  elements.consultCallCta.textContent = consultTemplate.primaryCta || "상담 예약하기";
 
   if (source.type === "rider") {
     const rider = findRider(source.id);

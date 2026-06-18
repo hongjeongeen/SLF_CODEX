@@ -16,9 +16,10 @@ const eventGuidance = {
 };
 
 const consultTemplate = {
-  title: "권유 없이 필요한 내용만 상담해드려요",
-  introCopy: "지금 보고 있던 항목과 막혔던 지점만 전달하는 흐름이라 처음부터 다시 설명하지 않아도 되도록 맥락을 함께 넘겨드려요.",
-  contextBlockTitle: "상담으로 바로 전달되는 내용"
+  title: "가입 권유 없이 궁금한 부분만<br>부담없이 물어보세요",
+  introCopy: "지금 보고 있던 보장 내용을 공유해서 궁금한 부분만 상담 받을 수 있어요.",
+  contextBlockTitle: "상담에서 공유받는 내용",
+  primaryCta: "상담 예약하기"
 };
 
 const categoryNavigation = [];
@@ -167,7 +168,7 @@ function buildConsultTemplateFromRows(rows) {
     title: row.title || prototypeData.consultTemplate.title,
     introCopy: row.intro_copy || prototypeData.consultTemplate.introCopy,
     contextBlockTitle: row.context_block_title || prototypeData.consultTemplate.contextBlockTitle,
-    primaryCta: row.primary_cta || ""
+    primaryCta: row.primary_cta || prototypeData.consultTemplate.primaryCta
   };
 }
 
