@@ -853,6 +853,10 @@ button {
   color: #9099a5;
 }
 
+.data-list li.off .btn-more select {
+  color: #9099a5;
+}
+
 .item {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -865,7 +869,7 @@ button {
   font-size: 15px;
   font-weight: 700;
   line-height: 1.5;
-  color: #778395;
+  color: #111827;
 }
 
 .tooltip.replacement {
@@ -1088,7 +1092,7 @@ button {
   padding: 0 10px;
   font-size: 13px;
   font-weight: 600;
-  color: #5d6878;
+  color: #111827;
   text-align: right;
   text-align-last: right;
 }
