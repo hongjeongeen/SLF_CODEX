@@ -1231,20 +1231,23 @@ button {
 .sticky-guide-bar {
   position: fixed;
   left: 50%;
-  bottom: 144px;
+  bottom: 0;
   transform: translateX(-50%);
-  width: min(calc(100% - 20px), 410px);
-  padding: 12px 16px 16px;
-  border-radius: 26px;
+  width: min(100%, 430px);
+  min-height: 228px;
+  max-height: min(54vh, 420px);
+  padding: var(--space-3) var(--space-4) calc(var(--space-5) + 8px);
+  border-radius: 28px 28px 0 0;
   background: #ffffff;
   color: var(--text);
   box-shadow: 0 -14px 34px rgba(16, 34, 53, 0.16);
-  z-index: 30;
+  z-index: 49;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 10px;
   isolation: isolate;
+  overflow: hidden;
 }
 
 .sticky-guide-bar::before {
@@ -1291,6 +1294,8 @@ button {
 .sticky-guide-body {
   display: grid;
   gap: 0;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .guide-copy {
@@ -1301,8 +1306,8 @@ button {
 .guide-title {
   margin: 0;
   color: var(--text);
-  font-size: 18px;
-  line-height: 1.4;
+  font-size: 17px;
+  line-height: 1.45;
   font-weight: 400;
   letter-spacing: -0.02em;
 }
@@ -1323,13 +1328,14 @@ button {
   margin: 0;
   color: #5f6e80;
   font-size: 14px;
-  line-height: 1.58;
+  line-height: 1.66;
 }
 
 .sticky-guide-footer {
   display: flex;
   justify-content: flex-end;
-  margin-top: 2px;
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
 }
 
 .sticky-guide-bar .guide-detail-btn {
