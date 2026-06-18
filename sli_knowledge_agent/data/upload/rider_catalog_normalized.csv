@@ -1,41 +1,41 @@
-product_rider_code,major_category,middle_category,minor_category,datajs_rider_id,datajs_section,datajs_label,linked_term_ids,linked_comparison_id,operator_note
-A0101,암,암 진단,통합암,integrated-cancer,암 진단,통합암,integratedCancer,integratedCancer-vs-generalCancer,"data.js riders[].id='integrated-cancer'에 매핑. 하이라이트, sticky guide, 비교 보기의 기준 특약"
-A0102,암,암 진단,통합소액암,integrated-small-cancer,암 진단,통합소액암,smallCancer,smallCancer-vs-generalCancer,"data.js riders[].id='integrated-small-cancer'에 매핑"
-A0103,암,암 진단,일반암,general-cancer,암 진단,일반암,generalCancer,integratedCancer-vs-generalCancer,"data.js riders[].id='general-cancer'에 매핑"
-A0104,암,암 진단,"소액질병(초기 유방암, 중증 이외 갑상선암 등)",,,,,,현재 data.js 미구현. CSV 원본에는 있으나 MVP 범위에서는 제외
-A0201,암,암 치료,암 통합 치료,integrated-treatment,암 치료,암 통합 치료,integratedCancer,integratedTreatment-vs-directTreatment,"data.js riders[].id='integrated-treatment'에 매핑"
-A0202,암,암 치료,암 통합 치료(비급여포함),integrated-treatment-noncovered,암 치료,암 통합 치료(비급여포함),nonCovered,integratedTreatment-vs-nonCoveredTreatment,"data.js riders[].id='integrated-treatment-noncovered'에 매핑"
-A0203,암,암 치료,암 치료,direct-treatment,암 치료,암 치료,directTreatment,integratedTreatment-vs-directTreatment,"data.js riders[].id='direct-treatment'에 매핑"
-A0204,암,암 치료,암 치료(소액암),small-direct-treatment,암 치료,암 치료(소액암),"smallCancer|directTreatment",directTreatment-vs-drugRadiation,"data.js riders[].id='small-direct-treatment'에 매핑"
-A0205,암,암 치료,암 상급병원 치료,tertiary-treatment,암 치료,암 상급병원 치료,"tertiaryHospital|directTreatment",treatment-vs-tertiaryTreatment,"data.js riders[].id='tertiary-treatment'에 매핑"
-A0206,암,암 치료,암 상급병원 치료(소액암),tertiary-treatment-small,암 치료,암 상급병원 치료(소액암),"tertiaryHospital|smallCancer",treatment-vs-tertiaryTreatment,"data.js riders[].id='tertiary-treatment-small'에 매핑"
-A0207,암,암 치료,암 복합 치료,complex-treatment,암 치료,암 복합 치료,directTreatment,integratedTreatment-vs-directTreatment,"data.js riders[].id='complex-treatment'에 매핑"
-A0208,암,암 치료,암 복합 치료(소액암),,,,,,현재 data.js 미구현. MVP 범위 밖
-A0209,암,암 치료,항암 약물 치료,drug-treatment,암 치료,항암 약물 치료,antiCancerDrug,directTreatment-vs-drugRadiation,"data.js riders[].id='drug-treatment'에 매핑"
-A0210,암,암 치료,항암 방사선 치료,radiation-treatment,암 치료,항암 방사선 치료,antiCancerRadiation,directTreatment-vs-drugRadiation,"data.js riders[].id='radiation-treatment'에 매핑"
-A0301,암,프리미엄 암 치료,암 고액 치료(8종),premium-treatment,프리미엄 암 치료,암 고액 치료(8종),directTreatment,integratedTreatment-vs-directTreatment,"data.js riders[].id='premium-treatment'에 매핑"
-A0302,암,프리미엄 암 치료,암 고액 치료(3종),,,,,,현재 data.js 미구현. MVP 범위 밖
-A0303,암,프리미엄 암 치료,항암 중입자 치료,,,,,,현재 data.js 미구현. MVP 범위 밖
-A0304,암,프리미엄 암 치료,항암 표적 약물·방사선 치료(리간드 치료 등),,,,,,현재 data.js 미구현. MVP 범위 밖
-A0305,암,프리미엄 암 치료,암 진단 및 정밀 치료(비급여 포함),,,,,,현재 data.js 미구현. MVP 범위 밖
-B0101,뇌·심장,뇌·심장 진단,뇌혈관질환,,,,,,현재 data.js 미구현. MVP 범위 밖
-B0102,뇌·심장,뇌·심장 진단,심장질환,,,,,,현재 data.js 미구현. MVP 범위 밖
-B0103,뇌·심장,뇌·심장 진단,부정맥,,,,,,현재 data.js 미구현. MVP 범위 밖
-B0201,뇌·심장,뇌·심장 치료,주요 순환계 질환 통합 치료,,,,,,현재 data.js 미구현. architecture/prd의 차기 비교 후보
-B0202,뇌·심장,뇌·심장 치료,주요 순환계 질환 특정 치료,,,,,,현재 data.js 미구현. architecture/prd의 차기 비교 후보
-B0203,뇌·심장,뇌·심장 치료,주요 순환계 질환 치료,,,,,,현재 data.js 미구현. architecture/prd의 차기 비교 후보
-B0204,뇌·심장,뇌·심장 치료,주요 순환계 질환 복합 치료,,,,,,현재 data.js 미구현. architecture/prd의 차기 비교 후보
-C0101,입원,입원,1일 입원,,,,,,현재 data.js 미구현. MVP 범위 밖
-C0102,입원,입원,2-3일실 입원,,,,,,현재 data.js 미구현. MVP 범위 밖
-D0101,간병,간병(일당),간병인(180일 이전),,,,,,현재 data.js 미구현. MVP 범위 밖
-D0102,간병,간병(일당),간병인(181일 이후),,,,,,현재 data.js 미구현. MVP 범위 밖
-D0103,간병,간병(일당),간호간병서비스,,,,,,현재 data.js 미구현. MVP 범위 밖
-E0101,수술,수술,"질병·사고 수술(수술 종류 상관없이 동일 보장)",,,,,,현재 data.js 미구현. MVP 범위 밖
-E0102,수술,수술,"파워 수술(수술 종류에 따라 다르게 보장)",,,,,,현재 data.js 미구현. MVP 범위 밖
-F0101,치매,치매,치매 진단,,,,,,현재 data.js 미구현. MVP 범위 밖
-F0102,치매,치매,치매 진단(당뇨 발생 후),,,,,,현재 data.js 미구현. MVP 범위 밖
-F0103,치매,치매,치매 통합 치료(데이캠프 등),,,,,,현재 data.js 미구현. MVP 범위 밖
-F0104,치매,치매,치매 통원 치료,,,,,,현재 data.js 미구현. MVP 범위 밖
-G0101,일상생활,일상생활,골절·깁스 치료,,,,,,현재 data.js 미구현. MVP 범위 밖
-G0102,일상생활,일상생활,독감 치료,,,,,,현재 data.js 미구현. MVP 범위 밖
-G0103,일상생활,일상생활,"중장년 질환(골다공증, 통풍, 대상포진, 관절염)",,,,,,현재 data.js 미구현. MVP 범위 밖
+﻿"product_rider_code","major_category","middle_category","minor_category","datajs_rider_id","datajs_section","datajs_label","linked_term_ids","linked_comparison_id","operator_note"
+"A0101","암","암 진단","통합암","integrated-cancer","암 진단","통합암","integratedCancer","integratedCancer-vs-generalCancer","data.js riders[].id='integrated-cancer'에 매핑. 하이라이트, sticky guide, 비교 보기의 기준 특약"
+"A0102","암","암 진단","통합소액암","integrated-small-cancer","암 진단","통합소액암","smallCancer","","data.js riders[].id='integrated-small-cancer'에 매핑"
+"A0103","암","암 진단","일반암","general-cancer","암 진단","일반암","generalCancer","integratedCancer-vs-generalCancer","data.js riders[].id='general-cancer'에 매핑"
+"A0104","암","암 진단","소액질병(초기 유방암, 중증 이외 갑상선암 등)","","","","","","현재 data.js 미구현. CSV 원본에는 있으나 MVP 범위에서는 제외"
+"A0201","암","암 치료","암 통합 치료","integrated-treatment","암 치료","암 통합 치료","integratedCancer","integratedTreatment-vs-directTreatment","data.js riders[].id='integrated-treatment'에 매핑"
+"A0202","암","암 치료","암 통합 치료(비급여포함)","integrated-treatment-noncovered","암 치료","암 통합 치료(비급여포함)","nonCovered","integratedTreatment-vs-nonCoveredTreatment","data.js riders[].id='integrated-treatment-noncovered'에 매핑"
+"A0203","암","암 치료","암 치료","direct-treatment","암 치료","암 치료","directTreatment","integratedTreatment-vs-directTreatment","data.js riders[].id='direct-treatment'에 매핑"
+"A0204","암","암 치료","암 치료(소액암)","small-direct-treatment","암 치료","암 치료(소액암)","smallCancer|directTreatment","","data.js riders[].id='small-direct-treatment'에 매핑"
+"A0205","암","암 치료","암 상급병원 치료","tertiary-treatment","암 치료","암 상급병원 치료","tertiaryHospital|directTreatment","","data.js riders[].id='tertiary-treatment'에 매핑"
+"A0206","암","암 치료","암 상급병원 치료(소액암)","tertiary-treatment-small","암 치료","암 상급병원 치료(소액암)","tertiaryHospital|smallCancer","","data.js riders[].id='tertiary-treatment-small'에 매핑"
+"A0207","암","암 치료","암 복합 치료","complex-treatment","암 치료","암 복합 치료","directTreatment","directTreatment-vs-complexTreatment","data.js riders[].id='complex-treatment'에 매핑"
+"A0208","암","암 치료","암 복합 치료(소액암)","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"A0209","암","암 치료","항암 약물 치료","drug-treatment","암 치료","항암 약물 치료","antiCancerDrug","","data.js riders[].id='drug-treatment'에 매핑"
+"A0210","암","암 치료","항암 방사선 치료","radiation-treatment","암 치료","항암 방사선 치료","antiCancerRadiation","","data.js riders[].id='radiation-treatment'에 매핑"
+"A0301","암","프리미엄 암 치료","암 고액 치료(8종)","premium-treatment","프리미엄 암 치료","암 고액 치료(8종)","directTreatment","premiumTreatment8-vs-premiumTreatment3","data.js riders[].id='premium-treatment'에 매핑"
+"A0302","암","프리미엄 암 치료","암 고액 치료(3종)","","","","","premiumTreatment8-vs-premiumTreatment3","현재 data.js 미구현. MVP 범위 밖"
+"A0303","암","프리미엄 암 치료","항암 중입자 치료","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"A0304","암","프리미엄 암 치료","항암 표적 약물·방사선 치료(리간드 치료 등)","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"A0305","암","프리미엄 암 치료","암 진단 및 정밀 치료(비급여 포함)","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"B0101","뇌·심장","뇌·심장 진단","뇌혈관질환","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"B0102","뇌·심장","뇌·심장 진단","심장질환","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"B0103","뇌·심장","뇌·심장 진단","부정맥","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"B0201","뇌·심장","뇌·심장 치료","주요 순환계 질환 통합 치료","","","","","","현재 data.js 미구현. architecture/prd의 차기 비교 후보"
+"B0202","뇌·심장","뇌·심장 치료","주요 순환계 질환 특정 치료","","","","","","현재 data.js 미구현. architecture/prd의 차기 비교 후보"
+"B0203","뇌·심장","뇌·심장 치료","주요 순환계 질환 치료","","","","","","현재 data.js 미구현. architecture/prd의 차기 비교 후보"
+"B0204","뇌·심장","뇌·심장 치료","주요 순환계 질환 복합 치료","","","","","","현재 data.js 미구현. architecture/prd의 차기 비교 후보"
+"C0101","입원","입원","1일 입원","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"C0102","입원","입원","2-3일실 입원","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"D0101","간병","간병(일당)","간병인(180일 이전)","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"D0102","간병","간병(일당)","간병인(181일 이후)","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"D0103","간병","간병(일당)","간호간병서비스","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"E0101","수술","수술","질병·사고 수술(수술 종류 상관없이 동일 보장)","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"E0102","수술","수술","파워 수술(수술 종류에 따라 다르게 보장)","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"F0101","치매","치매","치매 진단","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"F0102","치매","치매","치매 진단(당뇨 발생 후)","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"F0103","치매","치매","치매 통합 치료(데이캠프 등)","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"F0104","치매","치매","치매 통원 치료","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"G0101","일상생활","일상생활","골절·깁스 치료","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"G0102","일상생활","일상생활","독감 치료","","","","","","현재 data.js 미구현. MVP 범위 밖"
+"G0103","일상생활","일상생활","중장년 질환(골다공증, 통풍, 대상포진, 관절염)","","","","","","현재 data.js 미구현. MVP 범위 밖"
