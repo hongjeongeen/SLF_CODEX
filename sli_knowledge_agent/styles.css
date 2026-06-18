@@ -848,14 +848,6 @@ button {
   padding: 0;
 }
 
-.data-list li {
-  border-top: 1px solid #f3f5f8;
-}
-
-.data-list li:first-child {
-  border-top: 0;
-}
-
 .data-list li.off .item-copy > span,
 .data-list li.off .guide-inline {
   color: #9099a5;
