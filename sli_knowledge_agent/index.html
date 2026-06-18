@@ -109,13 +109,18 @@
       </main>
 
       <aside class="sticky-guide-bar hidden" id="guideBar" aria-live="polite">
-        <button class="icon-btn icon-btn-close guide-close-btn" id="guideDismissBtn" aria-label="닫기" type="button"><span aria-hidden="true">×</span></button>
-        <div class="guide-copy">
-          <p class="guide-kicker">지금은 이 내용만 보면 돼요</p>
-          <strong id="guideTitle" class="guide-title"></strong>
-          <span id="guideMessage" class="guide-body"></span>
+        <div class="sheet-handle"></div>
+        <div class="sticky-guide-header">
+          <div class="guide-copy">
+            <p class="sheet-kicker guide-kicker">지금은 이 내용만 보면 돼요</p>
+            <h2 id="guideTitle" class="guide-title"></h2>
+          </div>
+          <button class="icon-btn icon-btn-close guide-close-btn" id="guideDismissBtn" aria-label="닫기" type="button"><span aria-hidden="true">×</span></button>
         </div>
-        <div class="guide-actions">
+        <div class="sticky-guide-body">
+          <p id="guideMessage" class="guide-body"></p>
+        </div>
+        <div class="sticky-guide-footer">
           <button class="btn btn-pry btn-sm guide-detail-btn" id="guideDetailBtn" type="button">자세히 보기</button>
         </div>
       </aside>

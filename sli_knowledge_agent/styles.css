@@ -1231,60 +1231,87 @@ button {
 .sticky-guide-bar {
   position: fixed;
   left: 50%;
-  bottom: 156px;
+  bottom: 144px;
   transform: translateX(-50%);
   width: min(calc(100% - 20px), 410px);
-  padding: 16px 16px 14px;
-  border-radius: var(--radius-lg);
-  background: rgba(16, 34, 53, 0.96);
-  color: #fff;
-  box-shadow: 0 16px 34px rgba(5, 18, 33, 0.28);
+  padding: 12px 16px 16px;
+  border-radius: 26px;
+  background: #ffffff;
+  color: var(--text);
+  box-shadow: 0 -14px 34px rgba(16, 34, 53, 0.16);
   z-index: 30;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 0;
+  gap: 10px;
+  isolation: isolate;
+}
+
+.sticky-guide-bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: var(--sheet-outline-width);
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--sheet-outline-angle),
+    var(--sheet-outline-blue) 0deg,
+    var(--sheet-outline-green) 58deg,
+    var(--sheet-outline-azure) 112deg,
+    var(--sheet-outline-navy) 188deg,
+    var(--sheet-outline-purple) 258deg,
+    var(--sheet-outline-pink) 320deg,
+    #8b8dff 340deg,
+    var(--sheet-outline-blue) 360deg
+  );
+  animation: sheetOutlineFlow 7s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
 }
 
 .guide-kicker {
-  margin: 0 0 var(--space-2);
-  color: #95bcff;
-  font-size: var(--text-xs);
-  line-height: 1.4;
+  margin: 0 0 6px;
 }
 
-.guide-copy strong {
-  display: block;
-  margin-bottom: var(--space-2);
-  font-size: 16px;
-  line-height: var(--leading-tight);
+.sticky-guide-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
 }
 
-.guide-copy span {
-  display: block;
-  color: rgba(255, 255, 255, 0.84);
-  font-size: var(--text-sm);
-  line-height: var(--leading-base);
+.sticky-guide-body {
+  display: grid;
+  gap: 0;
 }
 
 .guide-copy {
   min-width: 0;
-  padding-right: 8px;
+  padding-right: 0;
 }
 
-.guide-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 0;
+.guide-title {
+  margin: 0;
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 .guide-close-btn {
-  position: absolute;
-  top: 10px;
-  right: 8px;
   width: 22px;
   height: 22px;
-  color: rgba(255, 255, 255, 0.82);
+  color: #6c7789;
+  flex: 0 0 auto;
 }
 
 .guide-close-btn span {
@@ -1292,17 +1319,30 @@ button {
   line-height: 1;
 }
 
+.guide-body {
+  margin: 0;
+  color: #5f6e80;
+  font-size: 14px;
+  line-height: 1.58;
+}
+
+.sticky-guide-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2px;
+}
+
 .sticky-guide-bar .guide-detail-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: auto;
-  min-width: 74px;
-  min-height: 20px;
-  height: 20px;
-  padding: 0 8px;
-  border-radius: 10px;
-  font-size: 11px;
+  min-width: 86px;
+  min-height: 34px;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 12px;
+  font-size: 12px;
   line-height: 1;
   align-self: flex-end;
   white-space: nowrap;
