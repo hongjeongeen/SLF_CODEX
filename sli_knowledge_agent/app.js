@@ -312,6 +312,10 @@ function renderPremium() {
   elements.footerPremium.textContent = formatWon(total);
 }
 
+function getOverlayPanels() {
+  return [elements.guideBar, elements.termSheet, elements.comparisonDrawer, elements.consultCard];
+}
+
 function showGuide(triggerType, riderId) {
   const rider = findRider(riderId);
   const guide = window.prototypeData.guideMessages[triggerType];
@@ -319,12 +323,12 @@ function showGuide(triggerType, riderId) {
 
   elements.guideTitle.textContent = `${rider.label} · ${guide.title}`;
   elements.guideMessage.textContent = `${guide.message} ${rider.helper}`;
-  elements.guideBar.classList.remove("hidden");
   state.lastGuideContext = { riderId, compareId: rider.compareId, termId: rider.termIds[0] || null };
+  openOverlay(elements.guideBar);
 }
 
 function hideGuide() {
-  elements.guideBar.classList.add("hidden");
+  closeOverlay(elements.guideBar);
 }
 
 function updateRiderToggle(riderId, enabled) {
@@ -360,7 +364,7 @@ function updateRiderAmount(riderId, amount) {
 
 function openOverlay(target) {
   hideHighlightHintBubble();
-  [elements.termSheet, elements.comparisonDrawer, elements.consultCard].forEach((panel) => {
+  getOverlayPanels().forEach((panel) => {
     if (panel !== target) panel.classList.add("hidden");
   });
   elements.scrim.classList.remove("hidden");
@@ -369,7 +373,7 @@ function openOverlay(target) {
 
 function closeOverlay(target) {
   target.classList.add("hidden");
-  if ([elements.termSheet, elements.comparisonDrawer, elements.consultCard].every((panel) => panel.classList.contains("hidden"))) {
+  if (getOverlayPanels().every((panel) => panel.classList.contains("hidden"))) {
     elements.scrim.classList.add("hidden");
   }
 }
@@ -720,6 +724,7 @@ function bindEvents() {
   });
 
   elements.scrim.addEventListener("click", () => {
+    closeOverlay(elements.guideBar);
     closeOverlay(elements.termSheet);
     closeOverlay(elements.comparisonDrawer);
     closeOverlay(elements.consultCard);
