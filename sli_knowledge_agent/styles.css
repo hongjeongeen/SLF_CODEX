@@ -1574,9 +1574,13 @@ button {
   gap: var(--space-2);
 }
 
+.comparison-drawer .legal-note {
+  margin: var(--space-2) 0;
+}
+
 .comparison-drawer .drawer-footer {
   margin-top: 0;
-  padding-top: 0;
+  padding-top: var(--space-2);
   border-top: 0;
 }
 
