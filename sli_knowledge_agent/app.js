@@ -468,7 +468,7 @@ function ensureHighlightHintBubble() {
 
   highlightHintBubble = document.createElement("div");
   highlightHintBubble.className = "highlight-hint-bubble";
-  highlightHintBubble.textContent = "쉬운 설명 확인해요";
+  highlightHintBubble.textContent = "쉬운 설명 확인해보세요";
   document.body.appendChild(highlightHintBubble);
   return highlightHintBubble;
 }
