@@ -210,7 +210,7 @@ function buildRidersFromRows(riderRows, optionRows) {
         label: row.label || row.product_rider_code,
         termIds: splitPipeValues(row.linked_term_ids),
         compareId: row.linked_comparison_id || "",
-        description: row.description || row.source_tooltip_plain || "",
+        description: row.description ?? row.source_tooltip_plain ?? "",
         consultTopic: row.consult_topic || `${row.label || row.product_rider_code} 내용을 같이 확인해요.`,
         sourceTooltipPlain: row.source_tooltip_plain || "",
         selectedAmount,

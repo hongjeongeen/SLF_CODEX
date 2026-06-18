@@ -261,6 +261,9 @@ function renderRiderRow(rider) {
   const compareButton = rider.compareId
     ? `<button type="button" class="mini-link" data-compare-id="${rider.compareId}" data-rider-id="${rider.id}">비교 보기</button>`
     : "";
+  const descriptionMarkup = rider.description
+    ? `<p class="guide-inline">${highlightTerms(rider.description, rider.termIds, `${rider.id}-desc`)}</p>`
+    : "";
   const helpTermId = rider.termIds[0] || "";
   const helpButton = helpTermId
     ? `
@@ -278,7 +281,7 @@ function renderRiderRow(rider) {
         <div class="item-copy">
           <span>${highlightTerms(rider.label, rider.termIds, `${rider.id}-label`)}</span>
           ${helpButton}
-          <p class="guide-inline">${highlightTerms(rider.description, rider.termIds, `${rider.id}-desc`)}</p>
+          ${descriptionMarkup}
           <div class="inline-actions">
             ${compareButton}
           </div>
