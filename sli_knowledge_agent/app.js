@@ -26,10 +26,6 @@ const elements = {
   openCompareFromTerm: document.getElementById("openCompareFromTerm"),
   openConsultFromTerm: document.getElementById("openConsultFromTerm"),
   comparisonTitle: document.getElementById("comparisonTitle"),
-  comparisonLeftTitle: document.getElementById("comparisonLeftTitle"),
-  comparisonRightTitle: document.getElementById("comparisonRightTitle"),
-  comparisonLeftFit: document.getElementById("comparisonLeftFit"),
-  comparisonRightFit: document.getElementById("comparisonRightFit"),
   comparisonPoints: document.getElementById("comparisonPoints"),
   comparisonCaution: document.getElementById("comparisonCaution"),
   comparisonConsultBtn: document.getElementById("comparisonConsultBtn"),
@@ -402,10 +398,6 @@ function openComparison(compareId) {
   if (!comparison) return;
   state.currentComparisonId = compareId;
   elements.comparisonTitle.textContent = comparison.title;
-  elements.comparisonLeftTitle.textContent = comparison.leftTitle;
-  elements.comparisonRightTitle.textContent = comparison.rightTitle;
-  elements.comparisonLeftFit.textContent = comparison.leftFit;
-  elements.comparisonRightFit.textContent = comparison.rightFit;
   elements.comparisonPoints.innerHTML = comparison.differencePoints.map((point) => `<li>${point}</li>`).join("");
   elements.comparisonCaution.textContent = comparison.caution;
   openOverlay(elements.comparisonDrawer);
