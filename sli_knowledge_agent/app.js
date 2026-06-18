@@ -21,9 +21,7 @@ const elements = {
   consultCallCta: document.getElementById("consultCallCta"),
   termSheetTitle: document.getElementById("termSheetTitle"),
   termPlainSummary: document.getElementById("termPlainSummary"),
-  termWhy: document.getElementById("termWhy"),
   termFit: document.getElementById("termFit"),
-  termCaution: document.getElementById("termCaution"),
   termLegal: document.getElementById("termLegal"),
   termExamplesBlock: document.getElementById("termExamplesBlock"),
   termExamples: document.getElementById("termExamples"),
@@ -118,10 +116,22 @@ function escapeRegExp(text) {
   return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function termHasVisibleContent(termId) {
+  const term = window.prototypeData.terms[termId];
+  if (!term) return false;
+
+  return Boolean(
+    term.plainSummary ||
+      term.fitCase ||
+      term.legalNotice ||
+      ((term.detailExamples || []).filter(Boolean).length > 0)
+  );
+}
+
 function highlightTerms(text, termIds, contextKey = "") {
-  return termIds.reduce((result, termId) => {
+  return (termIds || []).reduce((result, termId) => {
     const term = window.prototypeData.terms[termId];
-    if (!term) return result;
+    if (!term || !termHasVisibleContent(termId)) return result;
     let matchIndex = 0;
     return term.aliases.reduce((inner, alias) => {
       const pattern = new RegExp(`(${escapeRegExp(alias)})`, "g");
@@ -286,7 +296,7 @@ function renderRiderRow(rider) {
   const descriptionMarkup = rider.description
     ? `<p class="guide-inline">${highlightTerms(rider.description, rider.termIds, `${rider.id}-desc`)}</p>`
     : "";
-  const helpTermId = rider.termIds[0] || "";
+  const helpTermId = (rider.termIds || []).find((termId) => termHasVisibleContent(termId)) || "";
   const helpButton = helpTermId
     ? `
           <div class="tooltip replacement">
@@ -408,13 +418,11 @@ function closeOverlay(target) {
 
 function openTermSheet(termId) {
   const term = window.prototypeData.terms[termId];
-  if (!term) return;
+  if (!term || !termHasVisibleContent(termId)) return;
   state.currentTermId = termId;
   elements.termSheetTitle.textContent = term.label;
   elements.termPlainSummary.textContent = term.plainSummary;
-  elements.termWhy.textContent = term.whyItMatters;
   elements.termFit.textContent = term.fitCase;
-  elements.termCaution.textContent = term.caution;
   elements.termLegal.textContent = term.legalNotice;
   elements.termExamples.innerHTML = (term.detailExamples || []).map((item) => `<li>${item}</li>`).join("");
   elements.termExamplesBlock.classList.toggle("hidden", !(term.detailExamples || []).length);
