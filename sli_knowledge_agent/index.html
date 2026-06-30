@@ -164,8 +164,9 @@
         </div>
         <p class="legal-note" id="termLegal"></p>
       </div>
-      <div class="sheet-footer">
-        <button class="btn btn-pry" id="openConsultFromTerm" type="button">부담없이 물어보기</button>
+      <div class="sheet-footer support-actions">
+        <button class="btn btn-pry" id="openAiChatFromTerm" type="button">AI 문의</button>
+        <button class="btn btn-sec" id="openConsultFromTerm" type="button">상담사 연결</button>
       </div>
     </section>
 
@@ -185,8 +186,9 @@
         </div>
         <p class="legal-note" id="comparisonCaution"></p>
       </div>
-      <div class="drawer-footer">
-        <button class="btn btn-sec" id="comparisonConsultBtn" type="button">부담없이 물어보기</button>
+      <div class="drawer-footer support-actions">
+        <button class="btn btn-pry" id="comparisonAiChatBtn" type="button">AI 문의</button>
+        <button class="btn btn-sec" id="comparisonConsultBtn" type="button">상담사 연결</button>
       </div>
     </section>
 
@@ -211,8 +213,38 @@
       </div>
     </section>
 
+    <section class="consult-card ai-chat-sheet hidden" id="aiChatSheet" aria-modal="true" role="dialog">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <div>
+          <p class="sheet-kicker">AI 문의</p>
+          <h2 id="aiChatTitle">AI가 먼저 쉽게 설명해드릴게요</h2>
+        </div>
+        <button class="icon-btn icon-btn-close" aria-label="닫기" data-close="aiChatSheet" type="button"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="sheet-body ai-chat-body">
+        <p class="consult-lead" id="aiChatLead">지금 보고 있던 보장 맥락을 바탕으로, 헷갈리는 부분부터 짧게 정리해드려요.</p>
+        <div class="handoff-box ai-chat-context">
+          <p class="handoff-label">AI가 참고하는 내용</p>
+          <ul id="aiChatContext"></ul>
+        </div>
+        <div class="ai-chat-thread" id="aiChatMessages" aria-live="polite"></div>
+      </div>
+      <div class="sheet-footer ai-chat-footer">
+        <div class="ai-chat-composer">
+          <input
+            id="aiChatInput"
+            class="ai-chat-input"
+            type="text"
+            placeholder="예: 통합암이 일반암이랑 어떻게 달라요?"
+            aria-label="AI 문의 입력"
+          />
+          <button class="btn btn-pry ai-chat-send" id="aiChatSendBtn" type="button">전송</button>
+        </div>
+      </div>
+    </section>
+
     <script src="./data.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
-

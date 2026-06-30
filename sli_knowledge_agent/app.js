@@ -15,6 +15,7 @@ const elements = {
   termSheet: document.getElementById("termSheet"),
   comparisonDrawer: document.getElementById("comparisonDrawer"),
   consultCard: document.getElementById("consultCard"),
+  aiChatSheet: document.getElementById("aiChatSheet"),
   consultTitle: document.getElementById("consultTitle"),
   consultLead: document.getElementById("consultLead"),
   consultContextTitle: document.getElementById("consultContextTitle"),
@@ -25,12 +26,20 @@ const elements = {
   termLegal: document.getElementById("termLegal"),
   termExamplesBlock: document.getElementById("termExamplesBlock"),
   termExamples: document.getElementById("termExamples"),
+  openAiChatFromTerm: document.getElementById("openAiChatFromTerm"),
   openConsultFromTerm: document.getElementById("openConsultFromTerm"),
   comparisonTitle: document.getElementById("comparisonTitle"),
   comparisonPoints: document.getElementById("comparisonPoints"),
   comparisonCaution: document.getElementById("comparisonCaution"),
+  comparisonAiChatBtn: document.getElementById("comparisonAiChatBtn"),
   comparisonConsultBtn: document.getElementById("comparisonConsultBtn"),
   consultContext: document.getElementById("consultContext"),
+  aiChatTitle: document.getElementById("aiChatTitle"),
+  aiChatLead: document.getElementById("aiChatLead"),
+  aiChatContext: document.getElementById("aiChatContext"),
+  aiChatMessages: document.getElementById("aiChatMessages"),
+  aiChatInput: document.getElementById("aiChatInput"),
+  aiChatSendBtn: document.getElementById("aiChatSendBtn"),
   openOverview: document.getElementById("openOverview")
 };
 
@@ -75,6 +84,8 @@ function createInitialState() {
     currentTermId: null,
     currentComparisonId: null,
     currentConsultSource: null,
+    currentAiSource: null,
+    aiMessages: [],
     lastGuideContext: null,
     openSections: new Set(defaultOpenSections),
     openMiddleGroups: defaultOpenMiddleGroups,
@@ -89,6 +100,15 @@ function formatWon(value) {
 
 function formatWonNumber(value) {
   return value.toLocaleString("ko-KR");
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function findRider(riderId) {
@@ -341,7 +361,7 @@ function renderPremium() {
 }
 
 function getOverlayPanels() {
-  return [elements.guideBar, elements.termSheet, elements.comparisonDrawer, elements.consultCard];
+  return [elements.guideBar, elements.termSheet, elements.comparisonDrawer, elements.consultCard, elements.aiChatSheet];
 }
 
 function showGuide(triggerType, riderId) {
@@ -439,19 +459,18 @@ function openComparison(compareId) {
   openOverlay(elements.comparisonDrawer);
 }
 
-function openConsult(source) {
-  state.currentConsultSource = source;
+function getSupportContext(source) {
   const lines = [];
-  const consultTemplate = window.prototypeData.consultTemplate || {};
-
-  elements.consultTitle.innerHTML = consultTemplate.title || "";
-  elements.consultLead.textContent = consultTemplate.introCopy || "";
-  elements.consultContextTitle.textContent = consultTemplate.contextBlockTitle || "";
-  elements.consultCallCta.textContent = consultTemplate.primaryCta || "상담 예약하기";
+  let title = "AI가 먼저 쉽게 설명해드릴게요";
+  let intro = "지금 보고 있는 보장 내용을 먼저 쉬운 말로 정리해드릴게요.";
+  let followUp = "궁금한 점을 한 문장으로 물어보시면 현재 화면 기준으로 이어서 설명해드릴게요.";
 
   if (source.type === "rider") {
     const rider = findRider(source.id);
     if (rider) {
+      title = `${rider.label}부터 같이 볼게요`;
+      intro = rider.helper || `${rider.label}은 가입금액과 보장 구조를 같이 보는 게 핵심이에요.`;
+      followUp = rider.consultTopic || "보장 범위와 가입금액 중 헷갈리는 부분부터 물어보세요.";
       lines.push(`현재 보고 있던 항목: ${rider.label}`);
       lines.push(`현재 선택 상태: ${rider.enabled ? rider.selectedAmount : UNSELECTED_AMOUNT}`);
       lines.push(`상담으로 넘길 주제: ${rider.consultTopic}`);
@@ -462,14 +481,23 @@ function openConsult(source) {
   if (source.type === "term") {
     const term = window.prototypeData.terms[source.id];
     if (term) {
+      title = `${term.label}을 쉬운 말로 먼저 볼게요`;
+      intro = term.plainSummary || `${term.label}의 핵심부터 간단히 설명해드릴게요.`;
+      followUp = term.fitCase
+        ? `${term.fitCase} 세부 인정 기준은 약관 확인이 필요해요.`
+        : "필요 보장인지, 어떤 상황에서 주로 보는지 중심으로 같이 보면 이해가 쉬워져요.";
       lines.push(`궁금했던 용어: ${term.label}`);
       lines.push("필요했던 설명 유형: 쉬운 설명 및 차이 비교");
+      if (term.fitCase) lines.push(`주로 보는 상황: ${term.fitCase}`);
     }
   }
 
   if (source.type === "comparison") {
     const comparison = window.prototypeData.comparisons[source.id];
     if (comparison) {
+      title = `${comparison.title} 차이부터 짚어볼게요`;
+      intro = comparison.differencePoints[0] || `${comparison.title}의 핵심 차이부터 설명해드릴게요.`;
+      followUp = comparison.caution || "무엇이 더 낫다보다 보장 범위와 횟수 차이를 같이 보는 게 중요해요.";
       lines.push(`비교 중인 항목: ${comparison.title}`);
       lines.push(`비교 포인트: ${comparison.differencePoints[0]}`);
     }
@@ -482,9 +510,92 @@ function openConsult(source) {
     }
   }
 
-  elements.consultContext.innerHTML = lines.map((line) => `<li>${line}</li>`).join("");
+  return {
+    title,
+    intro,
+    followUp,
+    lines: [...new Set(lines.filter(Boolean))]
+  };
+}
+
+function openConsult(source) {
+  state.currentConsultSource = source;
+  const context = getSupportContext(source);
+  const consultTemplate = window.prototypeData.consultTemplate || {};
+
+  elements.consultTitle.innerHTML = consultTemplate.title || "";
+  elements.consultLead.textContent = consultTemplate.introCopy || "";
+  elements.consultContextTitle.textContent = consultTemplate.contextBlockTitle || "";
+  elements.consultCallCta.textContent = consultTemplate.primaryCta || "상담 예약하기";
+  elements.consultContext.innerHTML = context.lines.map((line) => `<li>${line}</li>`).join("");
   openOverlay(elements.consultCard);
 }
+
+function renderAiChatMessages() {
+  elements.aiChatMessages.innerHTML = state.aiMessages
+    .map(
+      (message) => `
+        <article class="ai-chat-message ${message.role}">
+          <p>${escapeHtml(message.text).replace(/\n/g, "<br />")}</p>
+        </article>
+      `
+    )
+    .join("");
+
+  requestAnimationFrame(() => {
+    elements.aiChatMessages.scrollTop = elements.aiChatMessages.scrollHeight;
+  });
+}
+
+function buildAiReply(question, source) {
+  const context = getSupportContext(source);
+  const normalizedQuestion = question.replace(/\s+/g, " ").trim();
+  const questionHint = normalizedQuestion ? `질문하신 "${normalizedQuestion}" 기준으로 보면, ` : "";
+
+  return `${questionHint}${context.intro} ${context.followUp}`;
+}
+
+function openAiChat(source) {
+  state.currentAiSource = source;
+  const context = getSupportContext(source);
+
+  elements.aiChatTitle.textContent = context.title;
+  elements.aiChatLead.textContent = "지금 보고 있던 보장 맥락을 바탕으로, 먼저 이해가 쉬운 설명부터 드려요.";
+  elements.aiChatContext.innerHTML = context.lines.map((line) => `<li>${line}</li>`).join("");
+
+  state.aiMessages = [
+    {
+      role: "assistant",
+      text: `${context.intro}\n${context.followUp}`
+    },
+    {
+      role: "assistant",
+      text: "궁금한 점을 짧게 적어주시면 지금 화면 기준으로 이어서 설명해드릴게요."
+    }
+  ];
+
+  elements.aiChatInput.value = "";
+  renderAiChatMessages();
+  openOverlay(elements.aiChatSheet);
+
+  requestAnimationFrame(() => {
+    elements.aiChatInput.focus();
+  });
+}
+
+function sendAiChatMessage() {
+  const question = elements.aiChatInput.value.trim();
+  if (!question || !state.currentAiSource) return;
+
+  state.aiMessages.push({ role: "user", text: question });
+  state.aiMessages.push({
+    role: "assistant",
+    text: buildAiReply(question, state.currentAiSource)
+  });
+  elements.aiChatInput.value = "";
+  renderAiChatMessages();
+}
+
 function toggleSection(sectionName) {
   if (state.openSections.has(sectionName)) {
     state.openSections.delete(sectionName);
@@ -756,8 +867,24 @@ function bindEvents() {
     if (state.currentTermId) openConsult({ type: "term", id: state.currentTermId });
   });
 
+  elements.openAiChatFromTerm.addEventListener("click", () => {
+    if (state.currentTermId) openAiChat({ type: "term", id: state.currentTermId });
+  });
+
+  elements.comparisonAiChatBtn.addEventListener("click", () => {
+    if (state.currentComparisonId) openAiChat({ type: "comparison", id: state.currentComparisonId });
+  });
+
   elements.comparisonConsultBtn.addEventListener("click", () => {
     if (state.currentComparisonId) openConsult({ type: "comparison", id: state.currentComparisonId });
+  });
+
+  elements.aiChatSendBtn.addEventListener("click", sendAiChatMessage);
+  elements.aiChatInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.isComposing) {
+      event.preventDefault();
+      sendAiChatMessage();
+    }
   });
 
   elements.scrim.addEventListener("click", () => {
@@ -765,6 +892,7 @@ function bindEvents() {
     closeOverlay(elements.termSheet);
     closeOverlay(elements.comparisonDrawer);
     closeOverlay(elements.consultCard);
+    closeOverlay(elements.aiChatSheet);
   });
 
   document.querySelectorAll("[data-close]").forEach((button) => {
