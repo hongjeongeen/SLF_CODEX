@@ -214,20 +214,16 @@
     </section>
 
     <section class="consult-card ai-chat-sheet hidden" id="aiChatSheet" aria-modal="true" role="dialog">
-      <div class="sheet-handle"></div>
-      <div class="sheet-header sheet-header-with-back">
-        <button class="icon-btn icon-btn-back" id="aiChatBackBtn" aria-label="뒤로가기" type="button"><span aria-hidden="true">‹</span></button>
-        <div>
-          <h2 id="aiChatTitle">AI가 먼저 쉽게 설명해드릴게요</h2>
-        </div>
-        <button class="icon-btn icon-btn-close" aria-label="닫기" data-close="aiChatSheet" type="button"><span aria-hidden="true">×</span></button>
+      <div class="ai-chat-screen-header">
+        <button class="icon-btn ai-chat-close-btn" id="aiChatCloseBtn" aria-label="닫기" data-close="aiChatSheet" type="button"><span aria-hidden="true">×</span></button>
       </div>
       <div class="sheet-body ai-chat-body">
-        <p class="consult-lead" id="aiChatLead">지금 보고 있던 보장 맥락을 바탕으로, 헷갈리는 부분부터 짧게 정리해드려요.</p>
-        <div class="handoff-box ai-chat-context">
-          <p class="handoff-label">AI가 참고하는 내용</p>
-          <ul id="aiChatContext"></ul>
-        </div>
+        <section class="ai-chat-hero" id="aiChatHero">
+          <span class="ai-chat-badge">AI 상담</span>
+          <h2 id="aiChatTitle">팩건강보험에 대해서 어떤 점이 궁금하세요?</h2>
+          <p class="consult-lead ai-chat-intro" id="aiChatLead">지금 보고 있던 보장 맥락을 반영해서 자주 묻는 질문부터 빠르게 답해드릴게요.</p>
+          <div class="ai-chat-presets" id="aiChatPresetList"></div>
+        </section>
         <div class="ai-chat-thread" id="aiChatMessages" aria-live="polite"></div>
       </div>
       <div class="sheet-footer ai-chat-footer">
@@ -236,10 +232,10 @@
             id="aiChatInput"
             class="ai-chat-input"
             type="text"
-            placeholder="예: 통합암이 일반암이랑 어떻게 달라요?"
+            placeholder="AI 상담사에게 궁금한 점을 물어보세요"
             aria-label="AI 문의 입력"
           />
-          <button class="btn btn-pry ai-chat-send" id="aiChatSendBtn" type="button">전송</button>
+          <button class="ai-chat-send" id="aiChatSendBtn" aria-label="전송" type="button"><span aria-hidden="true">➜</span></button>
         </div>
       </div>
     </section>

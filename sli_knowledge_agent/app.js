@@ -37,17 +37,20 @@ const elements = {
   consultContext: document.getElementById("consultContext"),
   aiChatTitle: document.getElementById("aiChatTitle"),
   aiChatLead: document.getElementById("aiChatLead"),
-  aiChatContext: document.getElementById("aiChatContext"),
+  aiChatHero: document.getElementById("aiChatHero"),
+  aiChatPresetList: document.getElementById("aiChatPresetList"),
   aiChatMessages: document.getElementById("aiChatMessages"),
   aiChatInput: document.getElementById("aiChatInput"),
   aiChatSendBtn: document.getElementById("aiChatSendBtn"),
-  aiChatBackBtn: document.getElementById("aiChatBackBtn"),
+  aiChatCloseBtn: document.getElementById("aiChatCloseBtn"),
   openOverview: document.getElementById("openOverview")
 };
 
 let highlightObserver = null;
 let highlightHintBubble = null;
 let lastScrollY = 0;
+let aiResponseTimer = null;
+let aiTypingTimer = null;
 
 function resetInitialScrollPosition() {
   if ("scrollRestoration" in window.history) {
@@ -88,6 +91,8 @@ function createInitialState() {
     currentConsultSource: null,
     currentAiSource: null,
     aiMessages: [],
+    aiPending: false,
+    aiTyping: false,
     lastGuideContext: null,
     openSections: new Set(defaultOpenSections),
     openMiddleGroups: defaultOpenMiddleGroups,
@@ -534,15 +539,37 @@ function openConsult(source) {
 }
 
 function renderAiChatMessages() {
-  elements.aiChatMessages.innerHTML = state.aiMessages
+  const hasConversation = state.aiMessages.length > 0;
+  elements.aiChatHero.classList.toggle("hidden", hasConversation);
+  elements.aiChatMessages.classList.toggle("is-empty", !hasConversation);
+  const messageMarkup = state.aiMessages
     .map(
       (message) => `
         <article class="ai-chat-message ${message.role}">
-          <p>${escapeHtml(message.text).replace(/\n/g, "<br />")}</p>
+          <p>${escapeHtml(message.text).replace(/\n/g, "<br />")}${message.isTyping ? '<span class="ai-chat-caret" aria-hidden="true"></span>' : ""}</p>
         </article>
       `
     )
     .join("");
+  const pendingMarkup = state.aiPending
+    ? `
+        <article class="ai-chat-message assistant ai-chat-message-loading" aria-live="polite">
+          <div class="ai-chat-loading-bubble">
+            <span class="ai-chat-loading-label">답변 생성중</span>
+            <span class="ai-chat-loading-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+          </div>
+        </article>
+      `
+    : "";
+  elements.aiChatMessages.innerHTML = `${messageMarkup}${pendingMarkup}`;
+  const isBusy = state.aiPending || state.aiTyping;
+  elements.aiChatInput.disabled = isBusy;
+  elements.aiChatSendBtn.disabled = isBusy;
+  elements.aiChatPresetList.querySelectorAll("[data-ai-preset]").forEach((button) => {
+    button.disabled = isBusy;
+  });
 
   requestAnimationFrame(() => {
     elements.aiChatMessages.scrollTop = elements.aiChatMessages.scrollHeight;
@@ -557,24 +584,87 @@ function buildAiReply(question, source) {
   return `${questionHint}${context.intro} ${context.followUp}`;
 }
 
-function openAiChat(source) {
-  state.currentAiSource = source;
-  const context = getSupportContext(source);
+function getAiPresetQuestions(source) {
+  if (source.type === "comparison") {
+    return [
+      "둘의 핵심 차이가 뭐야?",
+      "어떤 경우에 더 많이 써?",
+      "같이 보면 좋은 기준이 뭐야?"
+    ];
+  }
 
-  elements.aiChatTitle.textContent = context.title;
-  elements.aiChatLead.textContent = "지금 보고 있던 보장 맥락을 바탕으로, 먼저 이해가 쉬운 설명부터 드려요.";
-  elements.aiChatContext.innerHTML = context.lines.map((line) => `<li>${line}</li>`).join("");
+  if (source.type === "term") {
+    return [
+      "이 보장은 쉽게 말하면 뭐야?",
+      "언제 많이 궁금해해?",
+      "약관에서 특히 봐야 할 건 뭐야?"
+    ];
+  }
 
-  state.aiMessages = [
-    {
-      role: "assistant",
-      text: `${context.intro}\n${context.followUp}`
-    },
-    {
-      role: "assistant",
-      text: "궁금한 점을 짧게 적어주시면 지금 화면 기준으로 이어서 설명해드릴게요."
-    }
+  return [
+    "이 항목은 왜 넣는 거야?",
+    "가입금액은 어떻게 보면 돼?",
+    "같이 비교하면 좋은 보장이 있어?"
   ];
+}
+
+function getAiChatOpening(source) {
+  if (source.type === "comparison") {
+    const comparison = window.prototypeData.comparisons[source.id];
+    return comparison?.title
+      ? `${comparison.title}에 대해서 어떤 점이 궁금하세요?`
+      : "비교 중인 보장에 대해서 어떤 점이 궁금하세요?";
+  }
+
+  if (source.type === "term") {
+    const term = window.prototypeData.terms[source.id];
+    return term?.label
+      ? `${term.label}에 대해서 어떤 점이 궁금하세요?`
+      : "지금 보고 있는 보장에 대해서 어떤 점이 궁금하세요?";
+  }
+
+  const rider = findRider(source.id);
+  return rider?.label
+    ? `${rider.label}에 대해서 어떤 점이 궁금하세요?`
+    : "팩건강보험에 대해서 어떤 점이 궁금하세요?";
+}
+
+function renderAiChatPresets(source) {
+  const presets = getAiPresetQuestions(source);
+  elements.aiChatPresetList.innerHTML = presets
+    .map(
+      (preset) => `
+        <button class="ai-chat-preset" type="button" data-ai-preset="${escapeHtml(preset)}">
+          ${escapeHtml(preset)}
+        </button>
+      `
+    )
+    .join("");
+}
+
+function resetAiChatAsync() {
+  if (aiResponseTimer) {
+    window.clearTimeout(aiResponseTimer);
+    aiResponseTimer = null;
+  }
+
+  if (aiTypingTimer) {
+    window.clearTimeout(aiTypingTimer);
+    aiTypingTimer = null;
+  }
+
+  state.aiPending = false;
+  state.aiTyping = false;
+}
+
+function openAiChat(source) {
+  resetAiChatAsync();
+  state.currentAiSource = source;
+  elements.aiChatTitle.textContent = getAiChatOpening(source);
+  elements.aiChatLead.textContent = "지금 보고 있던 보장 맥락을 반영해서 자주 묻는 질문부터 빠르게 답해드릴게요.";
+  renderAiChatPresets(source);
+
+  state.aiMessages = [];
 
   elements.aiChatInput.value = "";
   renderAiChatMessages();
@@ -585,20 +675,63 @@ function openAiChat(source) {
   });
 }
 
-function sendAiChatMessage() {
-  const question = elements.aiChatInput.value.trim();
-  if (!question || !state.currentAiSource) return;
+function submitAiQuestion(question) {
+  if (!question || !state.currentAiSource || state.aiPending || state.aiTyping) return;
 
   state.aiMessages.push({ role: "user", text: question });
-  state.aiMessages.push({
-    role: "assistant",
-    text: buildAiReply(question, state.currentAiSource)
-  });
-  elements.aiChatInput.value = "";
+  state.aiPending = true;
   renderAiChatMessages();
+
+  aiResponseTimer = window.setTimeout(() => {
+    const fullReply = buildAiReply(question, state.currentAiSource);
+    state.aiPending = false;
+    state.aiTyping = true;
+    state.aiMessages.push({
+      role: "assistant",
+      text: "",
+      isTyping: true
+    });
+    aiResponseTimer = null;
+    renderAiChatMessages();
+
+    let currentIndex = 0;
+    const typeNextChunk = () => {
+      const currentMessage = state.aiMessages[state.aiMessages.length - 1];
+      if (!currentMessage) return;
+
+      const step = fullReply[currentIndex] === "\n" ? 1 : Math.min(fullReply.length - currentIndex, 2 + Math.floor(Math.random() * 4));
+      currentIndex += step;
+      currentMessage.text = fullReply.slice(0, currentIndex);
+      renderAiChatMessages();
+
+      if (currentIndex < fullReply.length) {
+        aiTypingTimer = window.setTimeout(typeNextChunk, 24);
+        return;
+      }
+
+      currentMessage.isTyping = false;
+      state.aiTyping = false;
+      aiTypingTimer = null;
+      renderAiChatMessages();
+
+      requestAnimationFrame(() => {
+        elements.aiChatInput.focus();
+      });
+    };
+
+    typeNextChunk();
+  }, 3000);
+}
+
+function sendAiChatMessage() {
+  const question = elements.aiChatInput.value.trim();
+  if (!question) return;
+  submitAiQuestion(question);
+  elements.aiChatInput.value = "";
 }
 
 function reopenSupportOrigin(source) {
+  resetAiChatAsync();
   if (!source) return;
 
   if (source.type === "term" && source.id) {
@@ -906,15 +1039,18 @@ function bindEvents() {
     }
   });
 
+  elements.aiChatPresetList.addEventListener("click", (event) => {
+    const presetButton = event.target.closest("[data-ai-preset]");
+    if (!presetButton) return;
+    submitAiQuestion(presetButton.dataset.aiPreset);
+  });
+
   elements.consultBackBtn.addEventListener("click", () => {
     reopenSupportOrigin(state.currentConsultSource);
   });
 
-  elements.aiChatBackBtn.addEventListener("click", () => {
-    reopenSupportOrigin(state.currentAiSource);
-  });
-
   elements.scrim.addEventListener("click", () => {
+    resetAiChatAsync();
     closeOverlay(elements.guideBar);
     closeOverlay(elements.termSheet);
     closeOverlay(elements.comparisonDrawer);
