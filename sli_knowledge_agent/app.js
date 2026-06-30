@@ -20,6 +20,7 @@ const elements = {
   consultLead: document.getElementById("consultLead"),
   consultContextTitle: document.getElementById("consultContextTitle"),
   consultCallCta: document.getElementById("consultCallCta"),
+  consultBackBtn: document.getElementById("consultBackBtn"),
   termSheetTitle: document.getElementById("termSheetTitle"),
   termPlainSummary: document.getElementById("termPlainSummary"),
   termFit: document.getElementById("termFit"),
@@ -40,6 +41,7 @@ const elements = {
   aiChatMessages: document.getElementById("aiChatMessages"),
   aiChatInput: document.getElementById("aiChatInput"),
   aiChatSendBtn: document.getElementById("aiChatSendBtn"),
+  aiChatBackBtn: document.getElementById("aiChatBackBtn"),
   openOverview: document.getElementById("openOverview")
 };
 
@@ -596,6 +598,23 @@ function sendAiChatMessage() {
   renderAiChatMessages();
 }
 
+function reopenSupportOrigin(source) {
+  if (!source) return;
+
+  if (source.type === "term" && source.id) {
+    openTermSheet(source.id);
+    return;
+  }
+
+  if (source.type === "comparison" && source.id) {
+    openComparison(source.id);
+    return;
+  }
+
+  closeOverlay(elements.consultCard);
+  closeOverlay(elements.aiChatSheet);
+}
+
 function toggleSection(sectionName) {
   if (state.openSections.has(sectionName)) {
     state.openSections.delete(sectionName);
@@ -885,6 +904,14 @@ function bindEvents() {
       event.preventDefault();
       sendAiChatMessage();
     }
+  });
+
+  elements.consultBackBtn.addEventListener("click", () => {
+    reopenSupportOrigin(state.currentConsultSource);
+  });
+
+  elements.aiChatBackBtn.addEventListener("click", () => {
+    reopenSupportOrigin(state.currentAiSource);
   });
 
   elements.scrim.addEventListener("click", () => {

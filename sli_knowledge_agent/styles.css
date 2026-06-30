@@ -1498,6 +1498,13 @@ button {
   margin-bottom: var(--space-3);
 }
 
+.sheet-header-with-back {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 24px;
+  align-items: flex-start;
+  column-gap: 12px;
+}
+
 .sheet-header > div,
 .drawer-header > div {
   min-width: 0;
@@ -1638,6 +1645,31 @@ button {
   text-align: center;
   line-height: 48px;
   text-decoration: none;
+}
+
+.icon-btn-back {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #7a8698;
+  padding: 0;
+  margin-top: 2px;
+  border-radius: 0;
+  background: transparent;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.icon-btn-back:hover {
+  color: #566273;
+  background: transparent;
+}
+
+.icon-btn-back span {
+  display: inline-block;
+  transform: translateY(-1px);
 }
 
 .ai-chat-sheet .sheet-body {
